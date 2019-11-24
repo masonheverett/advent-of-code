@@ -1,4 +1,4 @@
-# Advent of Code
+# Advent of Code 🎄
 
 > Scaffolding for solving the [Advent of Code (AoC)](https://adventofcode.com) problems in JavaScript
 
