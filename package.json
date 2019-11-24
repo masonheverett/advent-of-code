@@ -1,0 +1,9 @@
+{
+  "name": "advent-of-code",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "dependencies": {
+    "lodash": "^4.17.15"
+  }
+}
