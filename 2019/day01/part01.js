@@ -1,7 +1,13 @@
 const _ = require('lodash')
 
 const solve = (data) => {
-  console.log('This puzzle has not been attempted')
+  let sum = 0;
+  _.each(data, value => sum += requirements(parseInt(value, 10)));
+  console.log(sum);
+}
+
+const requirements = (value) => {
+  return Math.floor(value / 3) - 2
 }
 
 module.exports = { solve }
