@@ -1,6 +1,7 @@
 {
   "name": "advent-of-code",
   "scripts": {
+    "scores": "node leaderboard.js",
     "start": "node index.js"
   },
   "dependencies": {

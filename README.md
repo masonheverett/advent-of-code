@@ -8,6 +8,8 @@ To write a solution for a specific problem, navigate to the `.js` file for the s
 
 A stubbed method called `solve` has been provided for each solution that is already set up to receive the input data for that day from the `input.txt` in the same directory as an array of strings, one for each line in the input file.
 
+Please note that the scaffolding will assume there is a new line at the end of the input file.
+
 ##### Tips for Success
 
 * Update `input.txt` locally to try out different, smaller datasets as you work before tackling the large dataset provided by AoC
@@ -24,3 +26,7 @@ const YEAR = '2019'
 const DAY = '01'
 const PART = '01'
 ```
+
+### Checking the Leaderboard
+
+To check the competition leaderboard, run `npm run scores`. If the command doesn't return a printout of the leaderboard, a possible cause is that the session cookie has expired. Contact a Team Leader to get another one.
