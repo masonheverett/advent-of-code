@@ -30,7 +30,3 @@ const PART = '01'
 ### Checking the Leaderboard
 
 To check the competition leaderboard, run `npm run scores`. If the command doesn't return a printout of the leaderboard, a possible cause is that the session cookie has expired. Contact a Team Leader to get another one.
-
-### See the Answers
-
-See the answers so far in the [answers doc](ANSWERS.md)
