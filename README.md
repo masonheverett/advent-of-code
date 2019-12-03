@@ -33,4 +33,4 @@ To check the competition leaderboard, run `npm run scores`. If the command doesn
 
 ### See the Answers
 
-See the answers so far in the [answers doc](./answers.md)
+See the answers so far in the [answers doc](ANSWERS.md)
