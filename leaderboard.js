@@ -21,7 +21,7 @@ const req = https.request(options, res => {
       user_info.local_score = obj['members'][uid]['local_score']
       leaderboard.push(user_info)
     });
-    leaderboard.sort((a, b) => (a.stars > b.stars) ? -1 : ((a.stars == b.stars && a.local_score > b.local_score) ? -1 : 1));
+    leaderboard.sort((a, b) => (a.local_score > b.local_score) ? -1 : ((a.local_score == b.local_score && a.stars > b.stars) ? -1 : 1));
     process.stdout.write("Place\tScore\tStars\tName\n")
     _.each(leaderboard, u => {
       process.stdout.write((leaderboard.indexOf(u) + 1) + ":\t" + u.local_score + "\t" + u.stars + "\t" + u.name + "\n")
