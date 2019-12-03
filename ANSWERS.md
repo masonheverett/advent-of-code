@@ -9,8 +9,8 @@
 * Part 02:
 
 #### Day 03
-* Part 01:
-* Part 02:
+* Part 01: 245
+* Part 02: 48262
 
 #### Day 04
 * Part 01:
