@@ -1,9 +1,9 @@
 const _ = require('lodash')
 
 const solve = (data) => {
-  let sum = 0;
-  _.each(data, value => sum += requirements(parseInt(value, 10)));
-  console.log(sum);
+  let sum = 0
+  _.each(data, value => sum += requirements(parseInt(value, 10)))
+  console.log(sum)
 }
 
 const requirements = (value) => {
