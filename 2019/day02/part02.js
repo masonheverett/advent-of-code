@@ -5,6 +5,19 @@ const solve = (data) => {
   for (let i = 0; i < data.length; i++) {
     data[i] = parseInt(data[i], 10)
   }
+  for (let j = 0; j < 100; j++) {
+    for (let k = 0; k < 100; k++) {
+      const tempData = [data[0], k, j].concat(data.slice(3))
+      if (findValue(tempData) == 19690720) {
+        console.log((100 * k) + j)
+        k = 100
+        j = 100
+      }
+    }
+  }
+}
+
+const findValue = (data) => {
   for (let i = 0; i < data.length; i += 4) {
     switch (data[i]) {
       case 1:
@@ -20,7 +33,7 @@ const solve = (data) => {
         break
     }
   }
-  console.log(data[0])
+  return data[0]
 }
 
 module.exports = { solve }
