@@ -3,8 +3,8 @@
 // ================================================
 
 const YEAR = '2019'
-const DAY = '05'
-const PART = '02'
+const DAY = '06'
+const PART = '01'
 
 // ================================================
 // == Don't touch any of this stuff... please... ==
@@ -20,7 +20,7 @@ const readLines = () => {
     if (err || !data) {
       console.log(`Error reading file at ${filePath}`)
     } else {
-      solve(data.split('\n').slice(0, -1))
+      solve(data)
     }
   })
 }
