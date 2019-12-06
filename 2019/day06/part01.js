@@ -3,6 +3,8 @@ var os = require('os');
 var TreeModel = require('tree-model');
 var treeify = require('treeify');
 
+var firstRun = true;
+
 
 const solve = (data) => {
   data = data.split(os.EOL);
@@ -18,8 +20,9 @@ const solve = (data) => {
     if(line.length > 1) {
       console.log(line[1] + " orbits " + line[0]);
 
-      if(i == 0) {
+      if(i == 0 && firstRun == true) {
         root = tree.parse({id: line[0], children: [{id: line[1]}]});
+        firstRun = false;
       } else {
         //if the ndoe exists
         var nodeFound = root.first(function (node) {
@@ -28,7 +31,7 @@ const solve = (data) => {
         if(nodeFound) {
           var newNode = tree.parse({id: line[1]});
           nodeFound.addChild(newNode);
-          console.log()
+          console.log('node found and added as child: ' + line[1] + ' i: ' + i);
         } else {
           console.log("parent node not found with id: " + line[0] + ' pushing to reprocess pile');
           console.log("working on item: " + i + " with a reprocess size of: " + reprocess.length);
@@ -42,7 +45,7 @@ const solve = (data) => {
       console.log('we are at then end of the road, let\'s reprocess the lines not affected');
       data = reprocess;
       reprocess = [];
-      i = 0;
+      i = -1;
 
       if(prevReprocess == data.length) {
         console.log('there are abandoned nodes so breaking');
@@ -56,7 +59,7 @@ const solve = (data) => {
   let directIndirectCounter = 0;
 
   //this only works if single indirect paths since it does a pre breadth first search
-  root.walk({strategy: 'breadth'}, function (node) {
+  root.walk({strategy: 'post'}, function (node) {
     if(node.isRoot()) {
       console.log('root node, no routes');
     } else {
