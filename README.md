@@ -30,3 +30,15 @@ const PART = '01'
 ### Checking the Leaderboard
 
 To check the competition leaderboard, run `npm run scores`. If the command doesn't return a printout of the leaderboard, a possible cause is that the session cookie has expired. Contact a Team Leader to get another one.
+
+### Logging in as our team leader
+
+To log into AoC as the team leader, add the following as a bookmark:
+
+```javascript
+javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else if (document.cookie !== '') {alert('Open a fresh private window first');} else {document.cookie = 'session=53616c7465645f5fc56bfea444a873de1b4104de26de7b2024535b414fdffb40bbcd9e9a237ededd5f61fb8e35846edb'; window.location.reload();}})()
+```
+
+This script will verify you are on adventofcode.com and that you don't have any cookies currently (so a fresh private window).
+
+If these criteria are met, the script will add the cookie and refresh the page.
