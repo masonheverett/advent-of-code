@@ -41,4 +41,4 @@ javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {a
 
 This script will verify you are on adventofcode.com and that you don't have any cookies currently (so a fresh private window).
 
-If these criteria are met, the script will add the cookie and refresh the page.
+If these criteria are met, the script will add a session cookie and refresh the page.
