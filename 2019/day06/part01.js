@@ -5,10 +5,7 @@ var treeify = require('treeify');
 
 var firstRun = true;
 
-
 const solve = (data) => {
-  data = data.split(os.EOL);
-
   var tree = new TreeModel();
   var root;
 
@@ -70,11 +67,9 @@ const solve = (data) => {
 
   console.log(directIndirectCounter);
 
-
   console.log(
       treeify.asTree(root.model, true, true)
   );
-
 };
 
 module.exports = { solve };

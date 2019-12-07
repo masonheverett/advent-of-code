@@ -20,7 +20,7 @@ const readLines = () => {
     if (err || !data) {
       console.log(`Error reading file at ${filePath}`)
     } else {
-      solve(data)
+      solve(data.split(os.EOL).slice(0, -1))
     }
   })
 }
