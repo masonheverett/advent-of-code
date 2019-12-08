@@ -11,6 +11,7 @@ const PART = '02'
 // ================================================
 
 const fs = require('fs')
+const os = require('os')
 const path = require('path')
 const solve = require(`./${YEAR}/day${DAY}/part${PART}.js`).solve
 
