@@ -23,9 +23,9 @@ const getColor = (layers, ndx) => {
 const makeReadable = (value) => {
   switch (value) {
     case '0':
-      return ' '
+      return '  '
     case '1':
-      return '@'
+      return '@@'
   }
 }
 
