@@ -45,31 +45,32 @@ const runProgram = ({ output = [], nextOutput = 0, data, nextMinus = 0, instruct
     // Perform an action based on the opcode
     let shortOpcode = opcode % 10
     let val1, val2
+    const get = getter(data)
     switch (shortOpcode) {
 
       // Add two values
       case 1:
-        val1 = p1 === 0 ? get(data, get(data, dataNdx + 1)) : p1 === 1 ? get(data, dataNdx + 1) : get(data, relativeBase + get(data, dataNdx + 1))
-        val2 = p2 === 0 ? get(data, get(data, dataNdx + 2)) : p2 === 1 ? get(data, dataNdx + 2) : get(data, relativeBase + get(data, dataNdx + 2))
+        val1 = p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
+        val2 = p2 === 0 ? get(get(dataNdx + 2)) : p2 === 1 ? get(dataNdx + 2) : get(relativeBase + get(dataNdx + 2))
         if (p3 === 0) {
-          data[get(data, dataNdx + 3)] = val1 + val2
+          data[get(dataNdx + 3)] = val1 + val2
         } else if (p3 === 1) {
           data[dataNdx + 3] = val1 + val2
         } else {
-          data[relativeBase + get(data, dataNdx + 3)] = val1 + val2
+          data[relativeBase + get(dataNdx + 3)] = val1 + val2
         }
         break
 
       // Multiply two values
       case 2:
-        val1 = p1 === 0 ? get(data, get(data, dataNdx + 1)) : p1 === 1 ? get(data, dataNdx + 1) : get(data, relativeBase + get(data, dataNdx + 1))
-        val2 = p2 === 0 ? get(data, get(data, dataNdx + 2)) : p2 === 1 ? get(data, dataNdx + 2) : get(data, relativeBase + get(data, dataNdx + 2))
+        val1 = p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
+        val2 = p2 === 0 ? get(get(dataNdx + 2)) : p2 === 1 ? get(dataNdx + 2) : get(relativeBase + get(dataNdx + 2))
         if (p3 === 0) {
-          data[get(data, dataNdx + 3)] = val1 * val2
+          data[get(dataNdx + 3)] = val1 * val2
         } else if (p3 === 1) {
           data[dataNdx + 3] = val1 * val2
         } else {
-          data[relativeBase + get(data, dataNdx + 3)] = val1 * val2
+          data[relativeBase + get(dataNdx + 3)] = val1 * val2
         }
         break
 
@@ -90,11 +91,11 @@ const runProgram = ({ output = [], nextOutput = 0, data, nextMinus = 0, instruct
         }
         usedInput = true
         if (p1 === 0) {
-          data[get(data, dataNdx + 1)] = input;
+          data[get(dataNdx + 1)] = input;
         } else if (p1 === 1) {
           data[dataNdx + 1] = input
         } else {
-          data[relativeBase + get(data, dataNdx + 1)] = input
+          data[relativeBase + get(dataNdx + 1)] = input
         }
         nextMinus = 2
         break
@@ -102,16 +103,16 @@ const runProgram = ({ output = [], nextOutput = 0, data, nextMinus = 0, instruct
       // Output a value
       case 4:
         // Really, just add the value to an output array that will be returned when you halt
-        val1 = p1 === 0 ? get(data, get(data, dataNdx + 1)) : p1 === 1 ? get(data, dataNdx + 1) : get(data, relativeBase + get(data, dataNdx + 1))
+        val1 = p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
         output.push(val1)
         nextMinus = 2
         break
 
       // Jump if true
       case 5:
-        val1 = p1 === 0 ? get(data, get(data, dataNdx + 1)) : p1 === 1 ? get(data, dataNdx + 1) : get(data, relativeBase + get(data, dataNdx + 1))
+        val1 = p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
         if (val1 !== 0) {
-          instructionPointer = p2 === 0 ? get(data, get(data, dataNdx + 2)) : p2 === 1 ? get(data, dataNdx + 2) : get(data, relativeBase + get(data, dataNdx + 2))
+          instructionPointer = p2 === 0 ? get(get(dataNdx + 2)) : p2 === 1 ? get(dataNdx + 2) : get(relativeBase + get(dataNdx + 2))
         } else {
           nextMinus = 1
         }
@@ -119,9 +120,9 @@ const runProgram = ({ output = [], nextOutput = 0, data, nextMinus = 0, instruct
 
       // Jump if false
       case 6:
-        val1 = p1 === 0 ? get(data, get(data, dataNdx + 1)) : p1 === 1 ? get(data, dataNdx + 1) : get(data, relativeBase + get(data, dataNdx + 1))
+        val1 = p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
         if (val1 === 0) {
-          instructionPointer = p2 === 0 ? get(data, get(data, dataNdx + 2)) : p2 === 1 ? get(data, dataNdx + 2) : get(data, relativeBase + get(data, dataNdx + 2))
+          instructionPointer = p2 === 0 ? get(get(dataNdx + 2)) : p2 === 1 ? get(dataNdx + 2) : get(relativeBase + get(dataNdx + 2))
         } else {
           nextMinus = 1
         }
@@ -129,21 +130,33 @@ const runProgram = ({ output = [], nextOutput = 0, data, nextMinus = 0, instruct
 
       // Is less than
       case 7:
-        val1 = p1 === 0 ? get(data, get(data, dataNdx + 1)) : p1 === 1 ? get(data, dataNdx + 1) : get(data, relativeBase + get(data, dataNdx + 1))
-        val2 = p2 === 0 ? get(data, get(data, dataNdx + 2)) : p2 === 1 ? get(data, dataNdx + 2) : get(data, relativeBase + get(data, dataNdx + 2))
-        data[get(data, dataNdx + 3)] = val1 < val2 ? 1 : 0
+        val1 = p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
+        val2 = p2 === 0 ? get(get(dataNdx + 2)) : p2 === 1 ? get(dataNdx + 2) : get(relativeBase + get(dataNdx + 2))
+        if (p3 === 0) {
+          data[get(dataNdx + 3)] = val1 < val2 ? 1 : 0
+        } else if (p3 === 1) {
+          data[dataNdx + 3] = val1 < val2 ? 1 : 0
+        } else {
+          data[relativeBase + get(dataNdx + 3)] = val1 < val2 ? 1 : 0
+        }
         break
 
       // Is equal
       case 8:
-        val1 = p1 === 0 ? get(data, get(data, dataNdx + 1)) : p1 === 1 ? get(data, dataNdx + 1) : get(data, relativeBase + get(data, dataNdx + 1))
-        val2 = p2 === 0 ? get(data, get(data, dataNdx + 2)) : p2 === 1 ? get(data, dataNdx + 2) : get(data, relativeBase + get(data, dataNdx + 2))
-        data[get(data, dataNdx + 3)] = val1 === val2 ? 1 : 0
+        val1 = p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
+        val2 = p2 === 0 ? get(get(dataNdx + 2)) : p2 === 1 ? get(dataNdx + 2) : get(relativeBase + get(dataNdx + 2))
+        if (p3 === 0) {
+          data[get(dataNdx + 3)] = val1 === val2 ? 1 : 0
+        } else if (p3 === 1) {
+          data[dataNdx + 3] = val1 === val2 ? 1 : 0
+        } else {
+          data[relativeBase + get(dataNdx + 3)] = val1 === val2 ? 1 : 0
+        }
         break
 
       // Update relative base
       case 9:
-        relativeBase += get(data, dataNdx + 1)
+        relativeBase += p1 === 0 ? get(get(dataNdx + 1)) : p1 === 1 ? get(dataNdx + 1) : get(relativeBase + get(dataNdx + 1))
         nextMinus = 2
         break
       default:
@@ -160,7 +173,7 @@ const getModes = (opcode) => {
 }
 
 // Safely get the value at ndx in arr, returning 0 if undefined
-const get =  (arr, ndx) => {
+const getter = (arr) => (ndx) => {
   const value = arr[ndx]
   return value === undefined ? 0 : value
 }
