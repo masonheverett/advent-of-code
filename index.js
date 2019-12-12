@@ -3,8 +3,8 @@
 // ================================================
 
 const YEAR = '2019'
-const DAY = '10'
-const PART = '02'
+const DAY = '12'
+const PART = '01'
 
 // ================================================
 // == Don't touch any of this stuff... please... ==
