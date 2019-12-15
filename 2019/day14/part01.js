@@ -15,7 +15,7 @@ const howMuchOre = ({ count = 1, element = 'FUEL' , rMap, bank = {} }) => {
   let desiredCount = count
   if (bank[element] >= desiredCount) {
     // If the bank has all we need, take it from the bank return 0
-    bank[element] =- desiredCount
+    bank[element] -= desiredCount
     return 0
   } else if (bank[element] > 0) {
     // If the bank has some of what we need, empty the bank of that element
