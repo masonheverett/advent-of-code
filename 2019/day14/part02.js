@@ -1,11 +1,41 @@
 const _ = require('lodash')
 
 const solve = (data) => {
+  const start = Date.now()
   const rMap = parseData(data)
-  const fuelCount = 1639374
-  const oreCount = howMuchOre({ count: fuelCount, rMap })
-  console.log(`FUEL COUNT: ${fuelCount}`)
-  console.log(`ORE COUNT: ${oreCount}`)
+  const desiredOreCount = 1000000000000
+  let fuelCount = 1
+  let oreCount
+  while (true) {
+    oreCount = howMuchOre({ count: fuelCount, rMap })
+    console.log(`FUEL ${fuelCount} : ORE ${oreCount}`)
+    if (oreCount < desiredOreCount) {
+      fuelCount *= 2
+    } else {
+      break
+    }
+  }
+  let nextFuelJump = fuelCount / 8
+  fuelCount = (3 * fuelCount / 4)
+  while (true) {
+    oreCount = howMuchOre({ count: fuelCount, rMap })
+    console.log(`FUEL ${fuelCount} : ORE ${oreCount}`)
+    if (nextFuelJump < 1) {
+      if (oreCount > desiredOreCount) {
+        fuelCount--
+      }
+      break
+    } else {
+      if (oreCount < desiredOreCount) {
+        fuelCount += nextFuelJump
+      } else {
+        fuelCount -= nextFuelJump
+      }
+      nextFuelJump /= 2
+    }
+  }
+  console.log(`FINAL ANSWER: ${fuelCount}`)
+  console.log(`RUN TIME: ${(Date.now() - start) / 1000} seconds`)
 }
 
 const howMuchOre = ({ count = 1, element = 'FUEL' , rMap, bank = {} }) => {
