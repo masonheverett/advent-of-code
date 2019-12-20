@@ -17,17 +17,6 @@ const solve = (data) => {
     state = runProgram(state, value)
   })
   console.log(state.output.map(value => String.fromCharCode(value)).join(''))
-  // console.log(printableGrid(state.output))
-}
-
-const printableGrid = (output) => {
-  const columns = _.indexOf(output, 10)
-  const grid = _.chunk(output, columns + 1).map(row => row.slice(0, -1))
-  return grid.reduce((total, next) => {
-    return total + next.reduce((total1, next1) => {
-      return total1 + String.fromCharCode(next1)
-    }, '') + os.EOL
-  }, '')
 }
 
 module.exports = { solve }
