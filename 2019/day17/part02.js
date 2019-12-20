@@ -2,13 +2,13 @@ const _ = require('lodash')
 const os = require('os')
 const runProgram = require('../../intcode.js').runProgram
 
-const main = [65, 44, 66, 44, 65, 44, 66, 44, 67, 44, 65, 44, 67, 44, 65, 44, 67, 44, 66, 10]
-const funA = [82, 44, 56, 44, 52, 44, 76, 44, 56, 44, 76, 44, 52, 44, 76, 44, 52, 10]
-const funB = [76, 44, 56, 44, 82, 44, 54, 44, 76, 44, 54, 10]
-// TODO: funC is too long!!!!!!!!!! See day17/scratch.txt
-const funC = [76, 44, 56, 44, 76, 44, 52, 44, 82, 44, 56, 44, 52, 44, 76, 44, 54, 44, 76, 44, 52, 10]
-const feed = [110, 10]
-const input = main.concat(funA).concat(funB).concat(funC).concat(feed)
+const main = 'A,B,A,B,C,A,C,A,C,B\n'
+const funA = 'R,12,L,8,L,4,L,4\n'
+const funB = 'L,8,R,6,L,6\n'
+const funC = 'L,8,L,4,R,12,L,6,L,4\n'
+const feed = 'n\n'
+const inputStr = main + funA + funB + funC + feed
+const input = inputStr.split('').map(val => val.charCodeAt(0))
 
 const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)
@@ -16,7 +16,8 @@ const solve = (data) => {
   input.forEach(value => {
     state = runProgram(state, value)
   })
-  console.log(state.output.map(value => String.fromCharCode(value)).join(''))
+  console.log(state.output.slice(0,-1).map(value => String.fromCharCode(value)).join(''))
+  console.log(state.output.slice(-1)[0])
 }
 
 module.exports = { solve }
