@@ -5,6 +5,7 @@
     "start": "node index.js"
   },
   "dependencies": {
+    "bigint-crypto-utils": "^2.4.2",
     "lodash": "^4.17.15",
     "tree-model": "^1.0.7",
     "treeify": "^1.1.0"
