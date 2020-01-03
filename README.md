@@ -37,7 +37,7 @@ To check the competition leaderboard, run `npm run scores`. If the command doesn
 To log into AoC as the team leader, add the following as a bookmark:
 
 ```javascript
-javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=53616c7465645f5fc56bfea444a873de1b4104de26de7b2024535b414fdffb40bbcd9e9a237ededd5f61fb8e35846edb'; window.location.reload();}})()
+javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=REDACTED'; window.location.reload();}})()
 ```
 
 This script will first verify you are on adventofcode.com. If you are, the script will add a session cookie and refresh the page.
