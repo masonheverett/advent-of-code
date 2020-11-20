@@ -2,9 +2,9 @@
 // == Modify this part to run different problems ==
 // ================================================
 
-const YEAR = '2019'
-const DAY = '22'
-const PART = '02'
+const YEAR = '2020'
+const DAY = '01'
+const PART = '01'
 
 // ================================================
 // == Don't touch any of this stuff... please... ==
