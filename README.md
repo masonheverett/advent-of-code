@@ -4,6 +4,11 @@
 
 ![Age of COVID](./age-of-covid.png)
 
+### TODO
+
+* Quintin please update the scores script with the new leaderboard path and session ID
+* Quintin please update the bookmark snippet at the end of this doc with the session ID
+
 ### Writing a Solution
 
 To write a solution for a specific problem, navigate to the `.js` file for the solution. For example, the solution to problem 1 published on day 1 of 2020 can be found at `./2020/day01/part01.js`.
@@ -33,8 +38,6 @@ const PART = '01'
 ### Checking the Leaderboard
 
 To check the competition leaderboard, run `npm run scores`. If the command doesn't return a printout of the leaderboard, a possible cause is that the session cookie has expired. Contact a Team Leader to get another one.
-
-TODO: Quintin please update the scores script once you can login.
 
 ### Logging in as our team leader
 
