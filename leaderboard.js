@@ -2,10 +2,10 @@ const _ = require('lodash')
 const https = require('https')
 const options = {
   hostname: 'adventofcode.com',
-  path: '/2020/leaderboard',
+  path: '/2020/leaderboard/private/view/710015.json',
   method: 'GET',
   headers: {
-    'Cookie': 'session=REDACTED'
+    'Cookie': 'session=53616c7465645f5f5f70ff23b1927741e956e864c02995c20d8d640d1994e767908cbedc36cca27e5cbc5aeb6b3b39ad'
   }
 }
 

@@ -4,11 +4,6 @@
 
 ![Age of COVID](./age-of-covid.png)
 
-### TODO
-
-* Quintin please update the scores script with the new leaderboard path and session ID
-* Quintin please update the bookmark snippet at the end of this doc with the session ID
-
 ### Writing a Solution
 
 To write a solution for a specific problem, navigate to the `.js` file for the solution. For example, the solution to problem 1 published on day 1 of 2020 can be found at `./2020/day01/part01.js`.
@@ -44,7 +39,7 @@ To check the competition leaderboard, run `npm run scores`. If the command doesn
 To log into AoC as the team leader, add the following as a bookmark:
 
 ```javascript
-javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=REDACTED'; window.location.reload();}})()
+javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=53616c7465645f5f5f70ff23b1927741e956e864c02995c20d8d640d1994e767908cbedc36cca27e5cbc5aeb6b3b39ad'; window.location.reload();}})()
 ```
 
 This script will first verify you are on adventofcode.com. If you are, the script will add a session cookie and refresh the page.
