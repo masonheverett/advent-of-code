@@ -1,22 +1,48 @@
 const _ = require('lodash')
 
+const tribValues = [0, 1, 1]
+
 const solve = (data) => {
   const adapters = parse(data)
-  console.log(arrangements(adapters, 1))
+  const chunks = createChunks(adapters)
+  const counts = chunks.map(arrangements)
+  console.log(counts.reduce((prev, curr) => prev * curr))
 }
 
-const arrangements = (data, start) => {
+const arrangements = (data) => {
+  if (data.length === 1) return 1
+  if (data[data.length - 1] - data[0] === data.length - 1) return tribonacci(data.length)
+  return bruteForce(data, 1)
+}
+
+const tribonacci = (length) => {
+  while (length > tribValues.length - 1) {
+    const tvLength = tribValues.length
+    tribValues.push(tribValues[tvLength- 1] + tribValues[tvLength - 2] + tribValues[tvLength - 3])
+  }
+  return tribValues[length]
+}
+
+const bruteForce = (data, start) => {
   let count = 1
   for (let i = start; i < data.length - 1; i++) {
-    if (canRemove(data, i)) {
+    if (data[i + 1] - data[i - 1] < 4) {
       count += arrangements(_.without(data, data[i]), i)
     }
   }
   return count
 }
 
-const canRemove = (data, i) => {
-  return data[i + 1] - data[i - 1] < 4
+const createChunks = (data) => {
+  const chunks = []
+  let chunkStart = 0
+  for (let i = 0; i < data.length; i++) {
+    if ((i === data.length - 1) || data[i] + 2 < data[i + 1]) {
+      chunks.push(data.slice(chunkStart, i + 1))
+      chunkStart = i + 1
+    }
+  }
+  return chunks
 }
 
 const parse = (data) => {
