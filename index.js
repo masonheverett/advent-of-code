@@ -3,13 +3,8 @@
 // ================================================
 
 const YEAR = '2020'
-<<<<<<< HEAD
-const DAY = '21'
-const PART = '02'
-=======
 const DAY = '20'
 const PART = '01'
->>>>>>> 1324c76... Day 20 part 1 solution
 
 // ================================================
 // == Don't touch any of this stuff... please... ==
