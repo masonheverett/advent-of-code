@@ -1,7 +1,5 @@
 const _ = require('lodash')
 
-const activeCube = '#'
-
 const solve = (data) => {
   const source = parse(data)
   _.times(6, () => {
