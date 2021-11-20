@@ -6,7 +6,7 @@
 
 ### Writing a Solution
 
-To write a solution for a specific problem, navigate to the `.js` file for the solution. For example, the solution to problem 1 published on day 1 of 2020 can be found at `./2020/day01/part01.js`.
+To write a solution for a specific problem, navigate to the `.js` file for the solution. For example, the solution to part 01 published on day 01 of 2019 can be found at `./2019/day01/part01.js`.
 
 A stubbed method called `solve` has been provided for each solution that is already set up to receive the input data for that day from the `input.txt` in the same directory as an array of strings, one for each line in the input file.
 
@@ -18,28 +18,26 @@ Please note that the scaffolding will assume there is a new line at the end of t
 * Do all your work in the provided file, but don't try to fit it all into the `solve` method; using best coding practices and split out logical chunks into smaller methods
 * Don't reinvent the wheel: the hardest part of these problems is the math, so do the hard work early by figuring out the best mathematical solution before turning it into code
 * Use [`lodash`](https://lodash.com/docs/4.17.15), it's imported into every file already
-* If the problem uses an Intcode Computer (a common theme in 2019), use the `runProgram` method that takes a computer state and input, found in `2019/shared/intcode.js`
+* If lots of problems use some shared logic, consider moving that logic to a separate file in a shared folder (see `2019/shared/intcode.js`)
 
 ### Testing a Solution
 
-To test a specific problem, update the constants at the top of `index.js`, then run `npm start`. An example is provided below.
+To test a specific problem, run the following command:
 
-```js
-const YEAR = '2020'
-const DAY = '01'
-const PART = '01'
+```bash
+# Command Usage
+node index.js <year> <day> <part>
+
+# Command Example
+node index.js 2019 01 01
 ```
-
-### Checking the Leaderboard
-
-To check the competition leaderboard, run `npm run scores`. If the command doesn't return a printout of the leaderboard, a possible cause is that the session cookie has expired. Contact a Team Leader to get another one.
 
 ### Logging in as our team leader
 
 To log into AoC as the team leader, add the following as a bookmark:
 
 ```javascript
-javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=53616c7465645f5f5f70ff23b1927741e956e864c02995c20d8d640d1994e767908cbedc36cca27e5cbc5aeb6b3b39ad'; window.location.reload();}})()
+javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=TBD2021'; window.location.reload();}})()
 ```
 
 This script will first verify you are on adventofcode.com. If you are, the script will add a session cookie and refresh the page.

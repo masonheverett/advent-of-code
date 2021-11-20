@@ -1,29 +1,18 @@
-// ================================================
-// == Modify this part to run different problems ==
-// ================================================
-
-const YEAR = '2021'
-const DAY = '01'
-const PART = '01'
-
-// ================================================
-// == Don't touch any of this stuff... please... ==
-// ================================================
-
 const fs = require('fs')
 const os = require('os')
 const path = require('path')
-const solve = require(`./${YEAR}/day${DAY}/part${PART}.js`).solve
 
-const readLines = () => {
-  filePath = path.join(__dirname, `./${YEAR}/day${DAY}/input.txt`)
-  fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
-    if (err || !data) {
-      console.log(`Error reading file at ${filePath}`)
-    } else {
-      solve(data.split(os.EOL).slice(0, -1))
-    }
-  })
-}
+const year = process.argv[2]
+const day = process.argv[3]
+const part = process.argv[4]
 
-readLines()
+const solve = require(`./${year}/day${day}/part${part}.js`).solve
+const filePath = path.join(__dirname, `./${year}/day${day}/input.txt`)
+
+fs.readFile(filePath, { encoding: 'utf-8' }, (err, data) => {
+  if (err || !data) {
+    console.log(`Error reading file at ${filePath}`)
+  } else {
+    solve(data.split(os.EOL).slice(0, -1))
+  }
+})

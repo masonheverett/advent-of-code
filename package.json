@@ -1,9 +1,5 @@
 {
   "name": "advent-of-code",
-  "scripts": {
-    "scores": "node leaderboard.js",
-    "start": "node index.js"
-  },
   "dependencies": {
     "bigint-crypto-utils": "^2.4.2",
     "lodash": "^4.17.15",
