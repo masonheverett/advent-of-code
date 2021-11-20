@@ -2,7 +2,7 @@
 
 > Scaffolding for solving the [Advent of Code (AoC)](https://adventofcode.com) problems in JavaScript
 
-![Age of COVID](./age-of-covid.png)
+![Advent-gers](./advent-gers.jpg)
 
 ### Writing a Solution
 
