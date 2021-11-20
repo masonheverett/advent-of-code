@@ -1,0 +1,1 @@
+Input for day 21 goes here, with a newline at the end, please

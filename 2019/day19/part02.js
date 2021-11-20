@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const runProgram = require('../../intcode.js').runProgram
+const runProgram = require('../shared/intcode.js').runProgram
 
 const startingX = 59
 const startingY = 100

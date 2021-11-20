@@ -1,6 +1,6 @@
 const _ = require('lodash')
 const os = require('os')
-const runProgram = require('../../intcode.js').runProgram
+const runProgram = require('../shared/intcode.js').runProgram
 
 const main = 'A,B,A,B,C,A,C,A,C,B\n'
 const funA = 'R,12,L,8,L,4,L,4\n'

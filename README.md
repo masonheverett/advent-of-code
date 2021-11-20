@@ -18,7 +18,7 @@ Please note that the scaffolding will assume there is a new line at the end of t
 * Do all your work in the provided file, but don't try to fit it all into the `solve` method; using best coding practices and split out logical chunks into smaller methods
 * Don't reinvent the wheel: the hardest part of these problems is the math, so do the hard work early by figuring out the best mathematical solution before turning it into code
 * Use [`lodash`](https://lodash.com/docs/4.17.15), it's imported into every file already
-* If the problem uses an Intcode Computer (a common theme in 2019), use the `runProgram` method that takes a computer state and input, found in `intcode.js`
+* If the problem uses an Intcode Computer (a common theme in 2019), use the `runProgram` method that takes a computer state and input, found in `2019/shared/intcode.js`
 
 ### Testing a Solution
 

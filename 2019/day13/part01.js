@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const runProgram = require('../../intcode.js').runProgram
+const runProgram = require('../shared/intcode.js').runProgram
 
 const solve = (data) => {
   let count = 0

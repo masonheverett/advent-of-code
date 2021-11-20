@@ -1,5 +1,5 @@
 const _ = require('lodash')
-const runProgram = require('../../intcode.js').runProgram
+const runProgram = require('../shared/intcode.js').runProgram
 
 const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)

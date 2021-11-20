@@ -2,8 +2,8 @@
 // == Modify this part to run different problems ==
 // ================================================
 
-const YEAR = '2020'
-const DAY = '25'
+const YEAR = '2021'
+const DAY = '01'
 const PART = '01'
 
 // ================================================
