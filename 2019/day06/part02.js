@@ -1,12 +1,11 @@
-const _ = require('lodash');
-var os = require('os');
-var TreeModel = require('tree-model');
-var treeify = require('treeify');
+import _ from 'lodash';
+import os from 'os';
+import TreeModel from 'tree-model';
+import treeify from 'treeify';
 
 var firstRun = true;
 
-
-const solve = (data) => {
+export const solve = (data) => {
   data = data.split(os.EOL);
 
   var tree = new TreeModel();
@@ -98,5 +97,3 @@ const solve = (data) => {
 
 
 };
-
-module.exports = { solve };

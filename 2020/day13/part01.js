@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var departureTime = parseInt(data[0])
   var busIds = data[1].replace(/x,/g, '').trim()
   var earliestDepartureTime = 0
@@ -40,4 +40,3 @@ const calculateSchedule = (departTime, busIds) => {
     return [id, times]
   })
 }
-module.exports = { solve }

@@ -1,8 +1,8 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const tribValues = [0, 1, 1]
 
-const solve = (data) => {
+export const solve = (data) => {
   const adapters = parse(data)
   const chunks = createChunks(adapters)
   const counts = chunks.map(arrangements)
@@ -50,5 +50,3 @@ const parse = (data) => {
   sorted.unshift(0)
   return sorted
 }
-
-module.exports = { solve }

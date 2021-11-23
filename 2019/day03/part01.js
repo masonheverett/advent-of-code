@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const wire1 = getPoints(data[0].split(','))
   const wire2 = getPoints(data[1].split(','))
   const intersections = _.intersectionWith(wire1, wire2, (a, b) => a[0] === b[0] && a[1] === b[1])
@@ -35,5 +35,3 @@ const getMoverFunc = (direction) => {
       return (point) => ([point[0], point[1] - 1])
   }
 }
-
-module.exports = { solve }

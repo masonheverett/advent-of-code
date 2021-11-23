@@ -1,7 +1,7 @@
-const _ = require('lodash')
+import _ from 'lodash'
 let base_pattern = [0, 1, 0, -1]
 
-const solve = (data) => {
+export const solve = (data) => {
   let nums = data[0].split('').map(num => parseInt(num))
   console.log(phases(nums, 100))
 }
@@ -40,5 +40,3 @@ const decode = nums => {
 const phases = (next, runs, counter = 0) => {
   return counter === runs ? next.slice(0, 8) : phases(decode(next), runs, counter + 1)
 }
-
-module.exports = { solve }

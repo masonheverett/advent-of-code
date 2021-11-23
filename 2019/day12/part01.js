@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let moons = []
   _.each(data, (moon) => {
     let xIndex = moon.indexOf('=') + 1
@@ -75,5 +75,3 @@ const totalEnergy = (moons) => {
   })
   return totalEnergy
 }
-
-module.exports = { solve }

@@ -1,7 +1,7 @@
-const _ = require('lodash')
+import _ from 'lodash'
 const bigintCryptoUtils = require('bigint-crypto-utils')
 
-const solve = (data) => {
+export const solve = (data) => {
   const times = 101741582076661n
   const deckSize = 119315717514047n
   const cardPosition = 2020n
@@ -28,5 +28,3 @@ const solve = (data) => {
 
   console.log(Number((offset + increment * cardPosition) % deckSize))
 }
-
-module.exports = { solve }

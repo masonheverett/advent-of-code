@@ -1,8 +1,8 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const MOVES = 100
 
-const solve = (data) => {
+export const solve = (data) => {
   const cups = data[0].split('').map(Number)
   _.times(MOVES, (moveNum) => simulateMove(moveNum, cups))
   console.log('-- final --')
@@ -60,5 +60,3 @@ const printAnswer = (cups) => {
   cups.push(...cups.splice(0, cups.indexOf(1)))
   console.log(cups.splice(1).join(''))
 }
-
-module.exports = { solve }

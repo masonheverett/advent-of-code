@@ -1,7 +1,7 @@
-const _ = require('lodash')
-const runProgram = require('../shared/intcode.js').runProgram
+import _ from 'lodash'
+import intcode from '../shared/intcode.js'
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)
   let pointer;
   let relativeBase;
@@ -49,7 +49,7 @@ const solve = (data) => {
         let newY = current.y + dPos[direction].y;
         let newData  = dataClone.slice();
         console.log("direction: " + direction + " newX: " + newX + " newY: " + newY);
-        let output = runProgram({ data: newData, relativeBase: current.relativeBase, pointer: current.pointer}, direction);
+        let output = intcode({ data: newData, relativeBase: current.relativeBase, pointer: current.pointer}, direction);
 
         console.log("output has value: " + output.output);
 
@@ -93,5 +93,3 @@ const solve = (data) => {
     }
   }
 }
-
-module.exports = { solve }

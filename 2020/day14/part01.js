@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let mask = ''
   let mem = []
   _.forEach(data, (inst) => {
@@ -21,5 +21,3 @@ const solve = (data) => {
   })
   console.log(_.reduce(mem, (a, b = 0) => a + b, 0))
 }
-
-module.exports = { solve }

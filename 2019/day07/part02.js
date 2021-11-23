@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)
   console.log(_.max(findPermutations([5, 6, 7, 8, 9]).map(permutation => trySequenceOrder(parsedData, permutation))))
 }
@@ -29,7 +29,7 @@ const trySequenceOrder = (data, order) => {
     // If a machine is done, skip it
     if (machineStates[machineNdx].needsInput) {
       // Run the machine until it halts or asks for input
-      let newState = runProgram(machineStates[machineNdx], inputBuffers[machineNdx].shift())
+      let newState = intcode(machineStates[machineNdx], inputBuffers[machineNdx].shift())
       // Return if we are done with the entire sequence
       if (!newState.needsInput && machineNdx === 4) {
         return _.last(newState.output)
@@ -48,7 +48,7 @@ const trySequenceOrder = (data, order) => {
   }
 }
 
-const runProgram = ({ output, nextOutput, data, nextMinus, instructionPointer, dataNdx }, input) => {
+const intcode = ({ output, nextOutput, data, nextMinus, instructionPointer, dataNdx }, input) => {
   let usedInput = false
   while (true) {
     if (nextMinus > 0) {
@@ -193,5 +193,3 @@ const parseOpcode = (opcode) => {
     return [1, 1, 1]
   }
 }
-
-module.exports = { solve }

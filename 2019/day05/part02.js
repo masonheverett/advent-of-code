@@ -1,6 +1,5 @@
-const _ = require('lodash');
-
-const readline = require('readline');
+import _ from 'lodash';
+import readline from 'readline';
 
 function askQuestion(query) {
   const rl = readline.createInterface({
@@ -14,7 +13,7 @@ function askQuestion(query) {
   }))
 }
 
-const solve = async (data) => {
+export const solve = async (data) => {
   data = data[0].split(',')
   for (let i = 0; i < data.length; i++) {
     data[i] = parseInt(data[i], 10)
@@ -248,5 +247,3 @@ const solve = async (data) => {
   }
   console.log(data[0])
 }
-
-module.exports = { solve };

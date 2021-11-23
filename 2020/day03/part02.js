@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var count1 = 0
   var count3 = 0
   var count5 = 0
@@ -26,5 +26,3 @@ const solve = (data) => {
   const out = count1 * count3 * count5 * count7 * count2
   console.log(count1 + " * " + count3 + " * " + count5 + " * " + count7 + " * " + count2 + " = " + out)
 }
-
-module.exports = { solve }

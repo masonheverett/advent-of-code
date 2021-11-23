@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let allergensMap = {}
   const matchedAllergens = {}
 
@@ -35,5 +35,3 @@ const solve = (data) => {
 
   console.log(Object.keys(matchedAllergens).sort().map(allergen => matchedAllergens[allergen]).join(','))
 }
-
-module.exports = { solve }

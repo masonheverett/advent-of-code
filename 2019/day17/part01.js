@@ -1,11 +1,11 @@
-const _ = require('lodash')
+import _ from 'lodash'
 const os = require('os')
-const runProgram = require('../shared/intcode.js').runProgram
+import intcode from '../shared/intcode.js'
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)
   const state = { data: parsedData }
-  const { output } = runProgram(state)
+  const { output } = intcode(state)
   const columns = _.indexOf(output, 10)
   const grid = _.chunk(output, columns + 1).map(row => row.slice(0, -1))
   const rows = grid.length
@@ -46,5 +46,3 @@ const printableGrid = (grid) => {
     }, '') + os.EOL
   }, '')
 }
-
-module.exports = { solve }

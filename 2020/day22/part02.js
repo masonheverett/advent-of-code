@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let [deck1, deck2] = parse(data)
   const [endDeck1, endDeck2] = game(deck1, deck2)
   const winningDeck = endDeck1.length > 0 ? endDeck1 : endDeck2
@@ -60,5 +60,3 @@ const parse = (data) => {
   })
   return [deck1, deck2]
 }
-
-module.exports = { solve }

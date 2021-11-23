@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var count = 0
   const width = data[0].length
   for (i = 1; i < data.length; i++) {
@@ -10,5 +10,3 @@ const solve = (data) => {
   }
   console.log(count)
 }
-
-module.exports = { solve }

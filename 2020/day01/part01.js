@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   data.some((item1, index1) => {
     return data.some((item2, index2) => {
       const num1 = Number(item1)
@@ -12,5 +12,3 @@ const solve = (data) => {
     })
   })
 }
-
-module.exports = { solve }

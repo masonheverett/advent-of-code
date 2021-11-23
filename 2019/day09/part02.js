@@ -1,12 +1,12 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)
-  const result = runProgram({ data: parsedData }, 2)
+  const result = intcode({ data: parsedData }, 2)
   console.log(result.output)
 }
 
-const runProgram = ({ output = [], nextOutput = 0, data, nextMinus = 0, instructionPointer = -1, dataNdx = 0, relativeBase = 0 }, input) => {
+const intcode = ({ output = [], nextOutput = 0, data, nextMinus = 0, instructionPointer = -1, dataNdx = 0, relativeBase = 0 }, input) => {
   let usedInput = false
   while (true) {
 
@@ -177,5 +177,3 @@ const getter = (arr) => (ndx) => {
   const value = arr[ndx]
   return value === undefined ? 0 : value
 }
-
-module.exports = { solve }

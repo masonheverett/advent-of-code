@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const runProgram = ({ output = [], nextOutput = 0, data, nextMinus = 0, instructionPointer = -1, dataNdx = 0, relativeBase = 0 }, input) => {
+export default ({ output = [], nextOutput = 0, data, nextMinus = 0, instructionPointer = -1, dataNdx = 0, relativeBase = 0 }, input) => {
   let usedInput = false
   while (true) {
 
@@ -171,5 +171,3 @@ const getter = (arr) => (ndx) => {
   const value = arr[ndx]
   return value === undefined ? 0 : value
 }
-
-module.exports = { runProgram }

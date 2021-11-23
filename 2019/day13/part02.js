@@ -1,7 +1,7 @@
-const _ = require('lodash')
-const runProgram = require('../shared/intcode.js').runProgram
+import _ from 'lodash'
+import intcode from '../shared/intcode.js'
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)
   let state = { data: parsedData }
   let grid = []
@@ -9,7 +9,7 @@ const solve = (data) => {
   let nextMove = 0
   let firstMove = true
   while (!isFinished(grid)) {
-    state = runProgram(state, nextMove)
+    state = intcode(state, nextMove)
     if (firstMove) {
       nextMove = 0
       firstMove = false
@@ -67,5 +67,3 @@ const printGrid = (grid) => {
 }
 
 const sprites = [' ', '■', '□', '▬', '●']
-
-module.exports = { solve }

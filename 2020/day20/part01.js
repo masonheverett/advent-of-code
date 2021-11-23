@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var puzzleTiles = new Map()
   var borderMatch = false
 
@@ -82,5 +82,3 @@ const parsePuzzleTiles = (data) => {
 const reverseBorder = (border) => {
   return border.split('').reverse().join('')
 }
-
-module.exports = { solve }

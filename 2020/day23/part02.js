@@ -1,9 +1,9 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const MOVES = 10000000
 const CUPS = 1000000
 
-const solve = (data) => {
+export const solve = (data) => {
   const cups = parse(data)
   const labels = mapLabels(cups)
   _.range(MOVES).reduce((currentCup) => {
@@ -60,5 +60,3 @@ const findDestination = (current, cups, labels) => {
 const printAnswer = (cups, labels) => {
   console.log(countAhead(1, cups[labels[0]], cups).label * countAhead(2, cups[labels[0]], cups).label)
 }
-
-module.exports = { solve }

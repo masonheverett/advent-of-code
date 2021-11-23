@@ -1,21 +1,21 @@
-const _ = require('lodash')
-const runProgram = require('../shared/intcode.js').runProgram
+import _ from 'lodash'
+import intcode from '../shared/intcode.js'
 
 const startingX = 59
 const startingY = 100
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsed = data[0].split(',').map(Number)
   let x = startingX
   let y = startingY
   let topLeftX
   let topLeftY
   while (true) {
-    let bottomLeft = runProgram({ data: _.cloneDeep(parsed) }, x)
-    bottomLeft = runProgram(bottomLeft, y)
+    let bottomLeft = intcode({ data: _.cloneDeep(parsed) }, x)
+    bottomLeft = intcode(bottomLeft, y)
     if (_.last(bottomLeft.output) === 1) {
-      let topRight = runProgram({ data: _.cloneDeep(parsed) }, x + 99)
-      topRight = runProgram(topRight, y - 99)
+      let topRight = intcode({ data: _.cloneDeep(parsed) }, x + 99)
+      topRight = intcode(topRight, y - 99)
       if (_.last(topRight.output) === 1) {
         topLeftX = x
         topLeftY = y - 99
@@ -32,8 +32,8 @@ const solve = (data) => {
   for (let y = topLeftY - 10; y < topLeftY + 109; y++) {
     grid[y - (topLeftY - 10)] = []
     for (let x = topLeftX - 10; x < topLeftX + 109; x++) {
-      let state = runProgram({ data: _.cloneDeep(parsed) }, x)
-      state = runProgram(state, y)
+      let state = intcode({ data: _.cloneDeep(parsed) }, x)
+      state = intcode(state, y)
       if (_.last(state.output) === 1) {
         if (y < topLeftY || y > topLeftY + 99 || x < topLeftX || x > topLeftX + 99) {
           grid[y - (topLeftY - 10)][x - (topLeftX - 10)] = '#'
@@ -59,5 +59,3 @@ const printable = (grid) => {
   }
   return out
 }
-
-module.exports = { solve }

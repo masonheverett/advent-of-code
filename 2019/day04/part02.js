@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const range = data[0].split('-')
   const low = Number(range[0])
   const high = Number(range[1])
@@ -35,5 +35,3 @@ const digitsNeverDecrease = (num) => {
   }
   return true
 }
-
-module.exports = { solve }

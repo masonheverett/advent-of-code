@@ -1,10 +1,10 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const emptySeat = 'L'
 const occupiedSeat = '#'
 const floor = '.'
 
-const solve = (data) => {
+export const solve = (data) => {
   var roomState = data
   var currentState = null
   var changes = 1
@@ -149,5 +149,3 @@ const getAdjacentOccupiedCountEndOfRow = (row1, row2, index, max) => {
   }
   return occupiedCount
 }
-
-module.exports = { solve }

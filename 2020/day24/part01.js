@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const pairs = parse(data)
   console.log(countBlackTiles(pairs))
 }
@@ -33,5 +33,3 @@ const countBlackTiles = (pairs) => {
   })
   return blackTiles.size
 }
-
-module.exports = { solve }

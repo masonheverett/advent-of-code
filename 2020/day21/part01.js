@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let allergensMap = {}
   let ingredientCount  = {}
   let allIngredients = []
@@ -49,5 +49,3 @@ const solve = (data) => {
   const safeIngredients = _.pullAll(allIngredients, unsafeIngredients)
   console.log(safeIngredients.map(ingredient => ingredientCount[ingredient]).reduce((a, b) => a+b, 0))
 }
-
-module.exports = { solve }

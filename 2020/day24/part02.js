@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const pairs = toPairs(data)
   const grid = toGrid(pairs)
   _.times(100, (day) => {
@@ -103,5 +103,3 @@ const printGrid = (grid) => {
     console.log(rowString)
   })
 }
-
-module.exports = { solve }

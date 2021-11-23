@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const nums = data[0].split(',').map(Number)
   while (nums.length < 2020) {
     nums.push(nextNumber(nums))
@@ -13,5 +13,3 @@ const nextNumber = (nums) => {
   if (last === -1) return 0
   return nums.length - last - 1
 }
-
-module.exports = { solve }

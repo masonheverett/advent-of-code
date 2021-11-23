@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let sum = 0
   _.each(data, value => sum += requirements(parseInt(value, 10)))
   console.log(sum)
@@ -12,5 +12,3 @@ const requirements = (value) => {
   }
   return 0
 }
-
-module.exports = { solve }

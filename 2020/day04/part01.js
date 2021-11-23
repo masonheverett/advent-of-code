@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const fields = ['byr:', 'iyr:', 'eyr:', 'hgt:', 'hcl:', 'ecl:', 'pid:']
   var valid = 0
   var doc = []
@@ -21,5 +21,3 @@ const solve = (data) => {
   }
   console.log(valid)
 }
-
-module.exports = { solve }

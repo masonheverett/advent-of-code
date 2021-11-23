@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   for (i = 0; i < data.length; i++) {
     let temp = _.cloneDeep(data);
     const inst = data[i].split(' ')
@@ -34,5 +34,3 @@ const execute = (data) => {
   }
   return index === data.length ? acc : null
 }
-
-module.exports = { solve }

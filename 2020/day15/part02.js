@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const nums = data[0].split(',')
   const lastSeen = {}
   nums.forEach((num, index) => {
@@ -24,5 +24,3 @@ const nextNumber = (nums, lastSeen) => {
   if (last === undefined) return '0'
   return (nums.length - last - 1).toString()
 }
-
-module.exports = { solve }

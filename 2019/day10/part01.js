@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   data = data.map((v) => v.split(""));
 
   let totalAsteroids = 0;
@@ -71,5 +71,3 @@ function getGcd(x, y) {
   }
   return x;
 }
-
-module.exports = { solve }

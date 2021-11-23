@@ -1,7 +1,7 @@
-const _ = require('lodash')
+import _ from 'lodash'
 let base_pattern = [0, 1, 0, -1]
 
-const solve = (data) => {
+export const solve = (data) => {
   let nums = data[0].repeat(10000).split('').map(num => parseInt(num))
   const offset = parseInt(nums.slice(0, 7).join(''), 10)
   nums = nums.slice(offset)
@@ -16,5 +16,3 @@ const phases = (nums) => {
   }
   return nums;
 };
-
-module.exports = { solve }

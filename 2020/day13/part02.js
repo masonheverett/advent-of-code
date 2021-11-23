@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const buses = parse(data)
   let num = buses[0][0]
   let currPost = 1
@@ -26,5 +26,3 @@ const parse = (data) => {
     .filter((bus) => bus[0] !== 'x')
     .map((bus) => [parseInt(bus[0]), bus[1]])
 }
-
-module.exports = { solve }

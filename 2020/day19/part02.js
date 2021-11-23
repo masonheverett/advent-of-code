@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const { rules, messages } = parse(data)
   const ruleZeroRegex = new RegExp(`^${toRegex(rules[0], rules)}\$`)
   console.log(messages.filter((message) => message.match(ruleZeroRegex)).length)
@@ -54,5 +54,3 @@ const parse = (data) => {
   sortedRules = rules.sort((a, b) => a[0] - b[0]).map((rule) => rule[1])
   return { rules: sortedRules, messages }
 }
-
-module.exports = { solve }

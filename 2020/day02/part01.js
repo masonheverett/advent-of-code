@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var count = 0
   _.forEach(data, (line) => {
     const inst = _.split(line, ' ')
@@ -17,5 +17,3 @@ const solve = (data) => {
   })
   console.log(count)
 }
-
-module.exports = { solve }

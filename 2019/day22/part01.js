@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let deck = factoryDeck(10007)
   _.each(data, (inst) => {
     if (inst === "deal into new stack") {
@@ -30,5 +30,3 @@ const factoryDeck = (length) => {
   }
   return deck
 }
-
-module.exports = { solve }

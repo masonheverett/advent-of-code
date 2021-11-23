@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   passports = parse(data)
   console.log(_.filter(passports, isValid).length)
 }
@@ -52,5 +52,3 @@ const isValid = (passport) => {
   })
   return validByr && validIyr && validEyr && validHgt && validHcl && validEcl && validPid
 }
-
-module.exports = { solve }

@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var firstInvalid = 0
   
   for (var i = 25; i < data.length; i++) {
@@ -35,5 +35,3 @@ const isValid = (value, valueSet) => {
   
   return found
 }
-
-module.exports = { solve }

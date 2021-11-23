@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var totalSum = 0;
   _.forEach(data, (line) => {
     totalSum += calculateInputWithParenthesis(line)
@@ -25,5 +25,3 @@ const calculateInputWithParenthesis = (input) => {
   }
   return calculateInput(input);
 }
-
-module.exports = { solve }

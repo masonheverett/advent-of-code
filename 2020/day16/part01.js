@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsed = parse(data)
   const errorRate = _.sumBy(parsed.values, (value) => {
     return isValid(value, parsed.ranges) ? 0 : value
@@ -31,5 +31,3 @@ const isValid = (value, ranges) => {
     return prev || (value >= curr[0] && value <= curr[1])
   }, false)
 }
-
-module.exports = { solve }

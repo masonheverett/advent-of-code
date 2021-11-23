@@ -1,4 +1,4 @@
-const _ = require('lodash');
+import _ from 'lodash';
 
 let panelData = [];
 let relativeBase = 0;
@@ -26,7 +26,7 @@ const robot = {
   }
 };
 
-const solve = (data) => {
+export const solve = (data) => {
 
   panelData = data[0].split(',').map(Number);
   let movement = [];
@@ -239,5 +239,3 @@ function readIndex(mode, ip) {
 function mod(n, m) {
   return ((n % m) + m) % m;
 }
-
-module.exports = { solve };

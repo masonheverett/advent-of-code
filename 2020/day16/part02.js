@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsed = parse(data)
   const validTickets = parsed.tickets.filter((ticket) => isValidTicket(ticket, parsed.ranges))
   const fieldMappings = mapFields(validTickets, parsed.ranges)
@@ -76,5 +76,3 @@ const departureProduct = (fieldMappings, ticket, departureFields) => {
     return prev * ticket[fieldMappings[curr]]
   }, 1)
 }
-
-module.exports = { solve }

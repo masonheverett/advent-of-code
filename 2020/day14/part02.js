@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   let mask = ''
   let mem = []
   let allIndeces = []
@@ -40,5 +40,3 @@ const solve = (data) => {
   })
   console.log(sum)
 }
-
-module.exports = { solve }

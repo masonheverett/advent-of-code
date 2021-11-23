@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const tiles = parse(data)
   matchEdges(tiles)
   const grid = initGrid(Math.sqrt(tiles.length))
@@ -358,5 +358,3 @@ const countHashes = (image) => {
     return _.sumBy(row.split(''), (chr) => chr === '#' ? 1 : 0)
   })
 }
-
-module.exports = { solve }

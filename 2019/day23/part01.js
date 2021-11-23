@@ -1,7 +1,5 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   console.log('This puzzle has not been attempted')
 }
-
-module.exports = { solve }

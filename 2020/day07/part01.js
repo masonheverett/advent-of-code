@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const rules =  parse(data)
   const containers = new Set()
   searchForContainers('shiny gold', containers, rules)
@@ -23,5 +23,3 @@ const parse = (data) => {
     return [pair[0], pair[1].split(' , ')]
   })
 }
-
-module.exports = { solve }

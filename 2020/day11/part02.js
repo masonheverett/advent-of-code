@@ -1,4 +1,4 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const emptySeat = 'L'
 const occupiedSeat = '#'
@@ -13,7 +13,7 @@ const directions = [
   { x: -1, y: -1 }
 ]
 
-const solve = (data) => {
+export const solve = (data) => {
   let changed = true
   let processedSeating = []
   while (changed) {
@@ -60,5 +60,3 @@ const processSeating = (data) => {
   })
   return [tempSeats, changed]
 }
-
-module.exports = { solve }

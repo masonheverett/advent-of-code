@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const start = Date.now()
   const rMap = parseData(data)
   const desiredOreCount = 1000000000000
@@ -110,5 +110,3 @@ const parseData = (data) => {
   })
   return rMap
 }
-
-module.exports = { solve }

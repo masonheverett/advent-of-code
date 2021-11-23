@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const source = parse(data)
   _.times(6, () => {
     addSpace(source)
@@ -95,5 +95,3 @@ const printBox = (box) => {
     console.log('')
   })
 }
-
-module.exports = { solve }

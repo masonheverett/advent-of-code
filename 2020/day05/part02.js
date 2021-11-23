@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var seatIds = []
   _.forEach(data, (pass) => {
     seatIds.push(readPass(pass))
@@ -36,5 +36,3 @@ const binarySearch = (arr, finder) => {
     return binarySearch(arr.splice(-_.ceil(arr.length / 2)), finder.substring(1));
   }
 }
-
-module.exports = { solve }

@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   var answer = 0
   var oneJoltDiffs = 0
   var threeJoltDiffs = 0
@@ -45,5 +45,3 @@ const parse = (data) => {
 
   return convertedArray
 }
-
-module.exports = { solve }

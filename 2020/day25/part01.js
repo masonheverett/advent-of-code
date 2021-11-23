@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   const subjectNumber = 7
   const divNumber = 20201227
   const cardPublicKey = parseInt(data[0])
@@ -32,5 +32,3 @@ const solve = (data) => {
   console.log(cardEncryptionKey)
   console.log(doorEncryptionKey)
 }
-
-module.exports = { solve }

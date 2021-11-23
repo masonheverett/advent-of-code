@@ -1,14 +1,14 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   console.log(_.max(findPermutations([0,1,2,3,4]).map(permutation => trySequenceOrder(data, permutation))))
 }
 
 const trySequenceOrder = (data, order) => {
-  return order.reduce((lastOutput, nextSequence) => runProgram(data, [nextSequence, lastOutput]), 0)
+  return order.reduce((lastOutput, nextSequence) => intcode(data, [nextSequence, lastOutput]), 0)
 }
 
-const runProgram = (data, input) => {
+const intcode = (data, input) => {
   data = data[0].split(',').map(Number)
   let nextMinus = 0
   let instructionPointer = -1
@@ -136,5 +136,3 @@ const parseOpcode = (opcode) => {
     return [1, 1, 1]
   }
 }
-
-module.exports = { solve }

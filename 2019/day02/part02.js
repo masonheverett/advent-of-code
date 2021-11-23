@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   data = data[0].split(',')
   for (let i = 0; i < data.length; i++) {
     data[i] = parseInt(data[i], 10)
@@ -35,5 +35,3 @@ const findValue = (data) => {
   }
   return data[0]
 }
-
-module.exports = { solve }

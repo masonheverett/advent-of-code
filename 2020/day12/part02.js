@@ -1,4 +1,4 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
 const NORTH = 'N'
 const SOUTH = 'S'
@@ -10,7 +10,7 @@ const FORWARD = 'F'
 let pos = { x: 0, y: 0 }
 let waypoint = { x: 10, y: 1 }
 
-const solve = (data) => {
+export const solve = (data) => {
 
   _.forEach(data, (inst) => {
     const dist = parseInt(inst.substring(1))
@@ -60,5 +60,3 @@ const forward = (dist) => {
     pos.y += waypoint.y
   }
 }
-
-module.exports = { solve }

@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 const os = require('os')
-const runProgram = require('../shared/intcode.js').runProgram
+import intcode from '../shared/intcode.js'
 
 const main = 'A,B,A,B,C,A,C,A,C,B\n'
 const funA = 'R,12,L,8,L,4,L,4\n'
@@ -10,14 +10,12 @@ const feed = 'n\n'
 const inputStr = main + funA + funB + funC + feed
 const input = inputStr.split('').map(val => val.charCodeAt(0))
 
-const solve = (data) => {
+export const solve = (data) => {
   const parsedData = data[0].split(',').map(Number)
   let state = { data: parsedData }
   input.forEach(value => {
-    state = runProgram(state, value)
+    state = intcode(state, value)
   })
   console.log(state.output.slice(0,-1).map(value => String.fromCharCode(value)).join(''))
   console.log(state.output.slice(-1)[0])
 }
-
-module.exports = { solve }

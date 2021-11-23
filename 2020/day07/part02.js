@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   console.log(innerBagCount('shiny gold', parse(data)) - 1)
 }
 
@@ -21,5 +21,3 @@ const parse = (data) => {
     return [pair[0], pair[1].split(' , ')]
   })
 }
-
-module.exports = { solve }

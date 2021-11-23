@@ -1,6 +1,6 @@
-const _ = require('lodash')
+import _ from 'lodash'
 
-const solve = (data) => {
+export const solve = (data) => {
   groups = parse(data)
   var output = 0
   _.forEach(groups, (group) => {
@@ -35,5 +35,3 @@ const parse = (data) => {
   })
   return groups
 }
-
-module.exports = { solve }
