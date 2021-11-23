@@ -26,10 +26,10 @@ To test a specific problem, run the following command:
 
 ```bash
 # Command Usage
-node index.js <year> <day> <part>
+npm start <year> <day> <part>
 
 # Command Example
-node index.js 2019 01 01
+npm start 2019 01 01
 ```
 
 ### Logging in as our team leader
