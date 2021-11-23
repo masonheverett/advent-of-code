@@ -141,11 +141,7 @@ export const solve = async (data) => {
         break
       case 9:
         i = data.length
-        process.exit(1)
-        break
-      default:
-        break
+        process.exit(0)
     }
   }
-  console.log(data[0])
 }
