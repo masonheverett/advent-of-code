@@ -14,7 +14,7 @@ export const solve = (data) => {
       dy: 0,
       dz: 0
     })
-  });
+  })
   for (let i = 0; i < 1000; i++) {
     moons = calculateVelocities(moons)
     moons = applyVelocities(moons)

@@ -17,7 +17,6 @@ export const solve = (data) => {
       nextMove = getNextMove(state)
     }
     score = updateGrid(state, grid, score)
-    console.log(`SCORE: ${score}`)
   }
 }
 
@@ -51,19 +50,5 @@ const updateGrid = (state, grid, score) => {
     }
     state.nextOutput += 3
   }
-  printGrid(grid)
   return score
 }
-
-
-const printGrid = (grid) => {
-  for (let y = 0; y < grid[0].length; y++) {
-    let line = ''
-    for (let x = 0; x < grid.length; x++) {
-      line += sprites[grid[x][y]]
-    }
-    console.log(line)
-  }
-}
-
-const sprites = [' ', '■', '□', '▬', '●']

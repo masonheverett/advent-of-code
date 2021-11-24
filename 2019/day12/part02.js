@@ -14,7 +14,7 @@ export const solve = (data) => {
       dy: 0,
       dz: 0
     })
-  });
+  })
   const cycleLengths = [null, null, null]
   let step = 1
   while (true) {
@@ -43,15 +43,11 @@ const lcmArr = (arr) => {
 }
 
 const gcd = (a, b) => {
-  return !b ? a : gcd(b, a % b);
+  return !b ? a : gcd(b, a % b)
 }
 
 const lcm = (a, b) => {
-  return Math.abs(a * b) / gcd(a, b);
-}
-
-const moonIsStill = (moon) => {
-  return moon.dx === 0 && moon.dy === 0 && moon.dz === 0
+  return Math.abs(a * b) / gcd(a, b)
 }
 
 const simulate = (moons) => {
