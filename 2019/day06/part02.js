@@ -61,9 +61,9 @@ export const solve = (data) => {
   })
   var youPath = youNode.getPath()
 
-  console.log("Paths of YOU node\n\n\n")
+  console.log('Paths of YOU node\n\n\n')
   for (let j = 0; j < youPath.length; j++) {
-    console.log(" " + youPath[j].model.id + ",")
+    console.log(' ' + youPath[j].model.id + ',')
   }
 
   var sanNode = root.first((node) => {
@@ -71,8 +71,8 @@ export const solve = (data) => {
   })
   var sanPath = sanNode.getPath()
 
-  console.log("Paths of SAN node\n\n\n")
+  console.log('Paths of SAN node\n\n\n')
   for (let j = 0; j < sanPath.length; j++) {
-    console.log(" " + sanPath[j].model.id + ",")
+    console.log(' ' + sanPath[j].model.id + ',')
   }
 }

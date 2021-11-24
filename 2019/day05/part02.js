@@ -126,7 +126,7 @@ export const solve = async (data) => {
         }
         break
       case 3:
-        let answer = await askQuestion("input> ")
+        let answer = await askQuestion('input> ')
         console.log('input of: ', answer)
         if (p1 === 0) {
           data[data[i + 1]] = answer
