@@ -1,5 +1,5 @@
 import _ from 'lodash'
-const bigintCryptoUtils = require('bigint-crypto-utils')
+import bigintCryptoUtils from 'bigint-crypto-utils'
 
 export const solve = (data) => {
   const times = 101741582076661n
@@ -10,13 +10,13 @@ export const solve = (data) => {
   let dOffset = 0n
 
   _.each(data, (inst) => {
-    if (inst === "deal into new stack") {
+    if (inst === 'deal into new stack') {
       incMult = -incMult % deckSize
       dOffset = (dOffset + incMult) % deckSize
-    } else if (_.includes(inst, "cut")) {
+    } else if (_.includes(inst, 'cut')) {
       const num = BigInt(inst.match(/-?\d+/))
       dOffset = (dOffset + num * incMult) % deckSize
-    } else if (_.includes(inst, "deal with increment")) {
+    } else if (_.includes(inst, 'deal with increment')) {
       const num = BigInt(inst.match(/-?\d+/))
       incMult = (incMult * bigintCryptoUtils.modInv(num, deckSize)) % deckSize
     }

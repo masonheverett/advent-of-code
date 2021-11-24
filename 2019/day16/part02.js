@@ -1,5 +1,4 @@
 import _ from 'lodash'
-let base_pattern = [0, 1, 0, -1]
 
 export const solve = (data) => {
   let nums = data[0].repeat(10000).split('').map(num => parseInt(num))
@@ -11,8 +10,8 @@ export const solve = (data) => {
 const phases = (nums) => {
   for (let i = 0; i < 100; i++) {
     for (let j = nums.length - 1; j >= 0; j--) {
-      nums[j] = ((nums[j + 1] || 0) + nums[j]) % 10;
+      nums[j] = ((nums[j + 1] || 0) + nums[j]) % 10
     }
   }
-  return nums;
-};
+  return nums
+}

@@ -26,7 +26,7 @@ const decode = nums => {
   for (let i = 0; i < nums.length; i++) {
     const pattern = update_pattern(i + 1, nums.length)
     let updated = []
-    for (j = 0; j < nums.length; j++) {
+    for (let j = 0; j < nums.length; j++) {
       updated.push(nums[j] * pattern[j])
     }
     newNums.push(updated)

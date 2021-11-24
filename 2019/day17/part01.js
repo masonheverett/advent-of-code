@@ -1,5 +1,5 @@
 import _ from 'lodash'
-const os = require('os')
+import os from 'os'
 import intcode from '../shared/intcode.js'
 
 export const solve = (data) => {

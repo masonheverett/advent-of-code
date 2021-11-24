@@ -1,5 +1,4 @@
 import _ from 'lodash'
-const os = require('os')
 import intcode from '../shared/intcode.js'
 
 const main = 'A,B,A,B,C,A,C,A,C,B\n'
