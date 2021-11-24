@@ -87,16 +87,6 @@ const howMuchOre = ({ count = 1, element = 'FUEL' , rMap, bank = {} }) => {
   return oreNeeded
 }
 
-/**
- * Need 7A, we have 0 in the bank
- *   We can make 10 at a time, we need 10 ORE           10 ORE USED
- *   Make 10A, use 7, save 3                            3 A saved
- * Need 1E, we have 0 in the bank
- *   We can make 1 at a time, we need 7A and 1D
- *   We have 3A, need 4 more,
- *
- */
-
 const parseData = (data) => {
   const rMap = {}
   data.forEach((line) => {
