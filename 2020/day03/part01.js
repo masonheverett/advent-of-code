@@ -6,7 +6,7 @@ export const solve = (data) => {
   for (i = 1; i < data.length; i++) {
     const x = (3 * i) % width
     if (data[i][x] === '#')
-      count++;
+      count++
   }
   console.log(count)
 }

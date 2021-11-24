@@ -2,12 +2,12 @@ import _ from 'lodash'
 
 export const solve = (data) => {
   for (i = 0; i < data.length; i++) {
-    let temp = _.cloneDeep(data);
+    let temp = _.cloneDeep(data)
     const inst = data[i].split(' ')
     if (inst[0] === 'nop') temp[i] = 'jmp ' + inst[1]
     else if (inst[0] === 'jmp') temp[i] = 'nop ' + inst[1]
     acc = execute(temp)
-    if (acc !== null) break;
+    if (acc !== null) break
   }
   console.log(acc)
 }
@@ -22,14 +22,14 @@ const execute = (data) => {
     switch (inst[0]) {
       case 'nop':
         index++
-        break;
+        break
       case 'acc':
         acc += parseInt(inst[1])
         index++
-        break;
+        break
       case 'jmp':
         index += parseInt(inst[1])
-        break;
+        break
     }
   }
   return index === data.length ? acc : null

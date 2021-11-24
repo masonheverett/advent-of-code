@@ -10,14 +10,14 @@ export const solve = (data) => {
     switch (inst[0]) {
       case 'nop':
         index++
-        break;
+        break
       case 'acc':
         acc += parseInt(inst[1])
         index++
-        break;
+        break
       case 'jmp':
         index += parseInt(inst[1])
-        break;
+        break
     }
   }
   console.log(acc)
