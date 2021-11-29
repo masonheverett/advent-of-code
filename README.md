@@ -37,7 +37,7 @@ npm start 2019 01 01
 To log into AoC as the team leader, add the following as a bookmark:
 
 ```javascript
-javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=TBD2021'; window.location.reload();}})()
+javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=53616c7465645f5f26197832fd71e86414a2a4a8166b1ba467d4f772bf84fb985c5098928a81c06fa5fd6283f9afd65f'; window.location.reload();}})()
 ```
 
 This script will first verify you are on adventofcode.com. If you are, the script will add a session cookie and refresh the page.
