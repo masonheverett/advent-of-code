@@ -1,5 +1,14 @@
 import _ from 'lodash'
 
 export const solve = (data) => {
-  console.log('Hello, I am day 01 part 01. Solve me, please!')
+  var numberData = data.map(x => Number(x));
+  var count = 0;
+  console.log('data length is: ' + numberData.length);
+
+  for(var i=0; i+1 < numberData.length; i++) {
+    if(numberData[i+1] > numberData[i]) {
+      count++;
+    }
+  }
+  console.log(count);
 }
