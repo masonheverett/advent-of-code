@@ -1,5 +1,6 @@
 import _ from 'lodash'
 import https from 'https'
+import { sprintf } from 'sprintf-js'
 
 const options = {
   hostname: 'adventofcode.com',
@@ -9,27 +10,33 @@ const options = {
   },
 }
 
+const printBoard = (data) => {
+  console.log(`
+                     1111111111222222
+            1234567890123456789012345`)
+  _.values(data.members).sort((a, b) => {
+    return (a.local_score > b.local_score) ? -1 : ((a.local_score == b.local_score && a.stars > b.stars) ? -1 : 1)
+  }).forEach((member, index) => {
+    let output = sprintf('%4d) %5d ', index + 1, member.local_score)
+    for (let i = 1; i < 26; i++) {
+      if (_.size(member.completion_day_level[i.toString()]) === 2) {
+        output += '*'
+      } else if (_.size(member.completion_day_level[i.toString()]) === 1) {
+        output += '-'
+      } else {
+        output += ' '
+      }
+    }
+    output += `  ${member.name}`
+    console.log(output)
+  })
+  console.log('')
+}
+
 https.request(options, res => {
   let data = ''
   res.on('data', chunk => data += chunk)
-  res.on('end', () => {
-    const obj = JSON.parse(data)
-    const leaderboard = []
-    Object.keys(obj.members).forEach(uid => {
-      leaderboard.push({
-        name: obj['members'][uid]['name'],
-        stars: obj['members'][uid]['stars'],
-        local_score: obj['members'][uid]['local_score'],
-      })
-    })
-    leaderboard.sort((a, b) => {
-      return (a.local_score > b.local_score) ? -1 : ((a.local_score == b.local_score && a.stars > b.stars) ? -1 : 1)
-    })
-    process.stdout.write("Place\tScore\tStars\tName\n")
-    leaderboard.forEach(u => {
-      process.stdout.write((leaderboard.indexOf(u) + 1) + ":\t" + u.local_score + "\t" + u.stars + "\t" + u.name + "\n")
-    })
-  })
+  res.on('end', () => printBoard(JSON.parse(data)))
 }).on('error', error => {
   console.log(error)
 }).end()
