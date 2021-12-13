@@ -32,6 +32,16 @@ npm start <year> <day> <part>
 npm start 2019 01 01
 ```
 
+### Viewing the Leaderboard
+
+To view the Credera leaderboard in your terminal, run the following command:
+
+```bash
+npm run rank
+```
+
+If you get an authentication issue, you'll need to update the session token in `leaderboard.js`.
+
 ### Logging in as our team leader
 
 To log into AoC as the team leader, add the following as a bookmark:

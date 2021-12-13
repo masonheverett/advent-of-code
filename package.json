@@ -2,7 +2,8 @@
   "name": "advent-of-code",
   "type": "module",
   "scripts": {
-    "start": "node index.js"
+    "start": "node index.js",
+    "rank": "node leaderboard.js"
   },
   "dependencies": {
     "bigint-crypto-utils": "^2.4.2",
