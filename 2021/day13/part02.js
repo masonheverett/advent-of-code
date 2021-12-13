@@ -1,5 +1,42 @@
 import _ from 'lodash'
 
 export const solve = (data) => {
-  console.log('Hello, I am day 13 part 02. Solve me, please!')
+  let points = _.takeWhile(data, line => line.length > 0)
+    .map(line => line.split(',').map(Number))
+  const folds = _.slice(data, points.length + 1)
+    .map(line => line.slice(11).split('='))
+    .map(line => [line[0], Number(line[1])])
+  folds.forEach(fold => {
+    if (fold[0] === 'x') {
+      for (let i = 0; i < points.length; i++) {
+        if (points[i][0] > fold[1]) {
+          points[i][0] -= (2 * (points[i][0] - fold[1]))
+        }
+      }
+    } else {
+      for (let i = 0; i < points.length; i++) {
+        if (points[i][1] > fold[1]) {
+          points[i][1] -= (2 * (points[i][1] - fold[1]))
+        }
+      }
+    }
+    points = _.uniqBy(points, point => `${point[0]},${point[1]}`)
+  })
+  printPoints(points)
+}
+
+const printPoints = (points) => {
+  const maxX = _.max(points.map(point => point[0]))
+  const maxY = _.max(points.map(point => point[1]))
+  const grid = new Array(maxY + 1)
+  for (let i = 0; i < grid.length; i++) {
+    grid[i] = new Array(maxX + 1)
+    _.fill(grid[i], ' ')
+  }
+  points.forEach(point => {
+    grid[point[1]][point[0]] = '@'
+  })
+  grid.forEach(line => {
+    console.log(line.join(''))
+  })
 }
