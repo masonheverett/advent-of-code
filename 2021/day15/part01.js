@@ -27,12 +27,12 @@ class Graph {
     this.adjacencyList[vertex1][vertex2] = weight
   }
 
-  dijkstra(source) {
+  dijkstra(source, target) {
     const distances = {}
+    distances[source] = 0
     const visited = new Set()
     for (let i = 0; i < this.vertices.length; i++) {
-      if (this.vertices[i] === source) distances[source] = 0
-      else distances[this.vertices[i]] = Infinity
+      if (this.vertices[i] !== source) distances[this.vertices[i]] = Infinity
     }
     let currentVertex = this.vertexWithMinDistance(distances, visited)
     while (currentVertex !== null) {
@@ -47,7 +47,7 @@ class Graph {
       visited.add(currentVertex)
       currentVertex = this.vertexWithMinDistance(distances, visited)
     }
-    return distances[`${this.gridLength - 1},${this.gridWidth - 1}`]
+    return distances[target]
   }
 
   vertexWithMinDistance(distances, visited) {
@@ -66,6 +66,5 @@ class Graph {
 
 export const solve = (data) => {
   const graph = new Graph(data)
-  // console.log(graph)
-  console.log(graph.dijkstra('0,0'))
+  console.log(graph.dijkstra('0,0', `${graph.gridLength - 1},${graph.gridWidth - 1}`))
 }
