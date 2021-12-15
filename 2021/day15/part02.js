@@ -1,7 +1,28 @@
 import _ from 'lodash'
 
 const expandData = (data) => {
-  return data
+  const expandedRight = []
+  data.forEach(line => {
+    let expandedLine = _.cloneDeep(line)
+    for (let i = 1; i < 5; i++) {
+      expandedLine += copyLineSegment(line, i)
+    }
+    expandedRight.push(expandedLine)
+  })
+  const expandedDown = _.cloneDeep(expandedRight)
+  for (let i = 1; i < 5; i++) {
+    expandedRight.forEach(line => {
+      expandedDown.push(copyLineSegment(line, i))
+    })
+  }
+  return expandedDown
+}
+
+const copyLineSegment = (line, toAdd) => {
+  return line.split('').map(Number).map(num => {
+    if (num + toAdd > 9) return (num + toAdd + 1) % 10
+    else return num + toAdd
+  }).join('')
 }
 
 export const solve = (data) => {
