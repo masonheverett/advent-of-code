@@ -1,1 +1,1 @@
-Input for day 17 goes here, with a newline at the end, please
+target area: x=29..73, y=-248..-194
