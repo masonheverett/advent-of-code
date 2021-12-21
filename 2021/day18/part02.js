@@ -1,11 +1,21 @@
 import _ from 'lodash'
 
 export const solve = (data) => {
-  console.log(
-    data.map(line => new TreeNode().fromString(line))
-      .reduce((prev, next) => new TreeNode().withChildren(prev, next).reduce())
-      .magnitude()
-  )
+  let max = 0
+  for (let i = 0; i < data.length; i++) {
+    for (let j = i; j < data.length; j++) {
+      const mag1 = new TreeNode().withChildren(
+        new TreeNode().fromString(data[i]),
+        new TreeNode().fromString(data[j])
+      ).reduce().magnitude()
+      const mag2 = new TreeNode().withChildren(
+        new TreeNode().fromString(data[j]),
+        new TreeNode().fromString(data[i])
+      ).reduce().magnitude()
+      max = _.max([max, mag1, mag2])
+    }
+  }
+  console.log(max)
 }
 
 const readNum = (str) => {
