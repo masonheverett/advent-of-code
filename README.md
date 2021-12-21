@@ -4,8 +4,6 @@
 
 ![Advent-gers](./advent-gers.jpg)
 
-NOTE: All inputs starting in 2019 are from the team leader's account. Previous year's inputs are Mason's.
-
 ### Writing a Solution
 
 To write a solution for a specific problem, navigate to the `.js` file for the solution. For example, the solution to part 01 published on day 01 of 2019 can be found at `./2019/day01/part01.js`.
