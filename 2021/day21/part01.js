@@ -12,8 +12,7 @@ export const solve = (data) => {
   let turns = 0
   while (players[0].score < 1000 && players[1].score < 1000) {
     const player = players[turns % 2]
-    const rolls = [roll(), roll(), roll()]
-    const spaces = rolls[0] + rolls[1] + rolls[2]
+    const spaces = roll() + roll() + roll()
     player.position = (player.position + spaces) % 10
     if (player.position === 0) player.position = 10
     player.score += player.position
