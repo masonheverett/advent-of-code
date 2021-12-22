@@ -23,9 +23,9 @@ const parseData = (data) => {
     return {
       onOff: (onOff === 'on' ? 1 : 0),
       cuboid: {
-        x: { min: cuboid[0][0], max: cuboid[0][1] },
-        y: { min: cuboid[1][0], max: cuboid[1][1] },
-        z: { min: cuboid[2][0], max: cuboid[2][1] }
+        x: { min: _.min(cuboid[0]), max: _.max(cuboid[0]) },
+        y: { min: _.min(cuboid[1]), max: _.max(cuboid[1]) },
+        z: { min: _.min(cuboid[2]), max: _.max(cuboid[2]) }
       }
     }
   })
