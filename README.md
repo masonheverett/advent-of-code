@@ -2,8 +2,6 @@
 
 > Scaffolding for solving the [Advent of Code (AoC)](https://adventofcode.com) problems in JavaScript
 
-![Advent-gers](./advent-gers.jpg)
-
 ### Writing a Solution
 
 To write a solution for a specific problem, navigate to the `.js` file for the solution. For example, the solution to part 01 published on day 01 of 2019 can be found at `./2019/day01/part01.js`.
@@ -32,22 +30,6 @@ npm start <year> <day> <part>
 npm start 2019 01 01
 ```
 
-### Viewing the Leaderboard
+### Archived Solutions
 
-To view the Credera leaderboard in your terminal, run the following command:
-
-```bash
-npm run rank
-```
-
-If you get an authentication issue, you'll need to update the session token in `leaderboard.js`.
-
-### Logging in as our team leader
-
-To log into AoC as the team leader, add the following as a bookmark:
-
-```javascript
-javascript:(function(){if (document.location.hostname !== 'adventofcode.com') {alert('Go to adventofcode.com first');} else {document.cookie = 'session=53616c7465645f5f26197832fd71e86414a2a4a8166b1ba467d4f772bf84fb985c5098928a81c06fa5fd6283f9afd65f'; window.location.reload();}})()
-```
-
-This script will first verify you are on adventofcode.com. If you are, the script will add a session cookie and refresh the page.
+Please note that archived solutions are not updated as dependencies are updated.
