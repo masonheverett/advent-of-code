@@ -32,4 +32,4 @@ npm start 2019 01 01
 
 ### Archived Solutions
 
-Please note that archived solutions are not updated as dependencies are updated.
+Please note that archived solutions are not updated as dependencies are updated, and testing an archived solution is not possible with `npm start`.
