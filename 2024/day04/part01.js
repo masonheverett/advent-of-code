@@ -13,16 +13,22 @@ const coordDiffs = {
 }
 
 export const solve = (data) => {
+  // Parse input
   const grid = data.map(line => line.split(''))
   console.log(_.sum(grid.map((line, rowNum) => {
+    // Check each point in the cell in the grid
     return _.sum(line.map((char, colNum) => {
+      // Check if it's XMAS
       if (char === 'X') {
+        // Look E, SE, S, and SW
         return isMatch(grid, rowNum, colNum, E, 'MAS') +
           isMatch(grid, rowNum, colNum, SE, 'MAS') +
           isMatch(grid, rowNum, colNum, S, 'MAS') +
           isMatch(grid, rowNum, colNum, SW, 'MAS')
       }
+      // Check if it's SAMX
       if (char === 'S') {
+        // Look E, SE, S, and SW
         return isMatch(grid, rowNum, colNum, E, 'AMX') +
           isMatch(grid, rowNum, colNum, SE, 'AMX') +
           isMatch(grid, rowNum, colNum, S, 'AMX') +
