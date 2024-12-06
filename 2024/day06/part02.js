@@ -2,10 +2,10 @@ import _ from 'lodash'
 
 const NOT_DOT_OR_HASH = /[^\.#]/
 const DIRECTIONS = {
-  north: {rowDiff: -1, colDiff: 0, next: 'east'},
-  east: {rowDiff: 0, colDiff: 1, next: 'south'},
-  south: {rowDiff: 1, colDiff: 0, next: 'west'},
-  west: {rowDiff: 0, colDiff: -1, next: 'north'},
+  north: {icon: '^', rowDiff: -1, colDiff: 0, next: 'east'},
+  east: {icon: '>', rowDiff: 0, colDiff: 1, next: 'south'},
+  south: {icon: 'v', rowDiff: 1, colDiff: 0, next: 'west'},
+  west: {icon: '<', rowDiff: 0, colDiff: -1, next: 'north'},
 }
 const ICON_MAP = {
   '^': DIRECTIONS.north,
@@ -27,8 +27,6 @@ export const solve = (data) => {
     }
     return line.split('')
   })
-  // Mark the starting position as visited
-  grid[row][col] = 'X'
   // Walk it out
   while (true) {
     // Determine next space
@@ -46,10 +44,10 @@ export const solve = (data) => {
     row = nrow
     col = ncol
     // Mark new spot as visited
-    grid[row][col] = 'X'
+    grid[row][col] = direction.icon
   }
   // Print the grid (why not?)
   grid.forEach(line => console.log(line.join('')))
   // Count marked spots
-  console.log(_.sum(grid.map(line => _.sum(line.map(char => char === 'X')))))
+  console.log(_.sum(grid.map(line => _.sum(line.map(char => '^>v<'.includes(char))))))
 }
