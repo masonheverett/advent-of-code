@@ -14,42 +14,72 @@ const ICON_MAP = {
   '<': DIRECTIONS.west
 }
 
+class Grid {
+  constructor(data) {
+    this.g = data.map((line, lineNdx) => {
+      const starter = line.match(NOT_DOT_OR_HASH)
+      if (starter) {
+        this.row = lineNdx
+        this.col = line.search(NOT_DOT_OR_HASH)
+        this.direction = ICON_MAP[starter]
+      }
+      return line.split('')
+    })
+  }
+
+  height() { return this.g.length }
+  width() { return this.g[0].length }
+
+  nextRow() { return this.row + this.direction.rowDiff }
+  nextCol() { return this.col + this.direction.colDiff }
+
+  markCurrentPosition() { this.g[this.row][this.col] = 'X' }
+
+  canStepInBounds() {
+    if (this.nextRow() < 0 || this.nextRow() >= this.height()) return false
+    if (this.nextCol() < 0 || this.nextCol() >= this.width()) return false
+    return true
+  }
+
+  isBlockedByObstacle() {
+    return this.g[this.nextRow()][this.nextCol()] === '#'
+  }
+
+  turn() {
+    this.direction = DIRECTIONS[this.direction.next]
+  }
+
+  stepForward() {
+    this.row = this.nextRow()
+    this.col = this.nextCol()
+  }
+
+  distinctVisitedSpacesCount() {
+    return _.sum(this.g.map(line => _.sum(line.map(char => char === 'X'))))
+  }
+
+  print() {
+    this.g.forEach(line => console.log(line.join('')))
+  }
+}
+
 export const solve = (data) => {
   // Parse the grid
-  let row, col, direction
-  const grid = data.map((line, lineNdx) => {
-    // Check for starting location
-    const starter = line.match(NOT_DOT_OR_HASH)
-    if (starter) {
-      row = lineNdx
-      col = line.search(NOT_DOT_OR_HASH)
-      direction = ICON_MAP[starter]
-    }
-    return line.split('')
-  })
+  const grid = new Grid(data)
   // Mark the starting position as visited
-  grid[row][col] = 'X'
+  grid.markCurrentPosition()
   // Walk it out
   while (true) {
-    // Determine next space
-    const nrow = row + direction.rowDiff
-    const ncol = col + direction.colDiff
-    // If you are about to step out of bounds, break
-    if (nrow < 0 || nrow >= grid.length) break
-    if (ncol < 0 || ncol >= grid[0].length) break
-    // If you are about to step into an obstacle, update direction and continue
-    if (grid[nrow][ncol] === '#') {
-      direction = DIRECTIONS[direction.next]
+    if (!grid.canStepInBounds()) break
+    if (grid.isBlockedByObstacle()) {
+      grid.turn()
       continue
     }
-    // Move to the next space
-    row = nrow
-    col = ncol
-    // Mark new spot as visited
-    grid[row][col] = 'X'
+    grid.stepForward()
+    grid.markCurrentPosition()
   }
   // Print the grid (why not?)
-  grid.forEach(line => console.log(line.join('')))
+  grid.print()
   // Count marked spots
-  console.log(_.sum(grid.map(line => _.sum(line.map(char => char === 'X')))))
+  console.log(grid.distinctVisitedSpacesCount())
 }
