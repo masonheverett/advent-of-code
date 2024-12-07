@@ -2,7 +2,8 @@ import _ from 'lodash'
 
 const OPERATOR_FNS = [
   (a, b) => a + b,
-  (a, b) => a * b
+  (a, b) => a * b,
+  (a, b) => _.toNumber(a.toString() + b.toString())
 ]
 
 export const solve = (data) => {
