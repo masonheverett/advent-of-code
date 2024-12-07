@@ -14,85 +14,88 @@ const ICON_MAP = {
   '<': DIRECTIONS.west
 }
 
+class Grid {
+  constructor(data) {
+    this.g = data.map((line, lineNdx) => {
+      const starter = line.match(NOT_DOT_OR_HASH)
+      if (starter) {
+        this.row = lineNdx
+        this.starterRow = this.row
+        this.col = line.search(NOT_DOT_OR_HASH)
+        this.starterCol = this.col
+        this.direction = ICON_MAP[starter]
+      }
+      return line.split('')
+    })
+  }
+
+  height() { return this.g.length }
+  width() { return this.g[0].length }
+
+  nextRow() { return this.row + this.direction.rowDiff }
+  nextCol() { return this.col + this.direction.colDiff }
+  nextSpaceMarker() { return this.g[this.nextRow()][this.nextCol()] }
+
+  canStepInBounds() {
+    return this.nextRow() >= 0 && this.nextRow() < this.height() &&
+      this.nextCol() >= 0 && this.nextCol() < this.width()
+  }
+  isBlockedByObstacle() { return '#0'.includes(this.nextSpaceMarker()) }
+  nextSpaceIsTheSame() { return this.canStepInBounds() && this.nextSpaceMarker() === this.direction.icon }
+  nextSpaceIsTheStart() { return this.nextRow() === this.starterRow && this.nextCol() === this.starterCol }
+
+  turn() { this.direction = DIRECTIONS[this.direction.next] }
+  markCurrentPosition() { this.g[this.row][this.col] = this.direction.icon }
+  stepForward() {
+    this.row = this.nextRow()
+    this.col = this.nextCol()
+  }
+  placeObstacle() { this.g[this.nextRow()][this.nextCol()] = '0' }
+
+  print() {
+    this.printGrid()
+    this.printData()
+  }
+
+  printGrid() {
+    this.g.forEach(line => console.log(line.join('')))
+  }
+
+  printData() {
+    console.log(this.row, this.col, this.direction.icon)
+  }
+}
+
 export const solve = (data) => {
   // Parse the grid
-  let row, col, direction
-  const grid = data.map((line, lineNdx) => {
-    // Check for starting location
-    const starter = line.match(NOT_DOT_OR_HASH)
-    if (starter) {
-      row = lineNdx
-      col = line.search(NOT_DOT_OR_HASH)
-      direction = ICON_MAP[starter]
-    }
-    return line.split('')
-  })
+  const grid = new Grid(data)
   // Walk it out
-  console.log(w(grid, row, col, direction, true))
-  // Check if you can move
-  while (canMove(grid, row, col, direction)) {
-    // Move
-    row, col, direction = move(grid, row, col, direction)
-    // Check if you can create a loop by placing an obstacle directly in front of you
-    let nrow, ncol, ndirection = row, col, direction
-    const ngrid = copyGridWithObstacle(grid, row, col, direction)
-    while (canMove(ngrid, nrow, ncol, ndirection)) {
-      // Check for loop, break if so
-      // Move
-      nrow, ncol, direction = move(ngrid, nrow, ncol, direction)
-    }
-  }
-}
-
-const canMove = (grid, row, col, direction) => {
-
-}
-
-const move = (grid, row, col, direction) => {
-
-}
-
-const copyGridWithObstacle = (grid, row, col, direction) => {
-
-}
-
-const walkItOut = (grid, row, col, direction, lookForLoops) => {
   let loops = 0
   while (true) {
-    // Determine next space
-    const nrow = row + direction.rowDiff
-    const ncol = col + direction.colDiff
-    // If you are about to move out of bounds, break
-    if (nrow < 0 || nrow >= grid.length) break
-    if (ncol < 0 || ncol >= grid[0].length) break
-    // If you are about to move into an obstacle, update direction and continue
-    if (grid[nrow][ncol] === '#') {
-      direction = DIRECTIONS[direction.next]
+    if (!grid.canStepInBounds()) break
+    if (grid.isBlockedByObstacle()) {
+      grid.turn()
       continue
     }
-    // If you are about to move to a space that we've already visited going this same direction, you're in a loop
-    if (grid[nrow][ncol] === direction.icon)
-    // Move to the next space
-    row = nrow
-    col = ncol
-    // Mark new spot as visited
-    grid[row][col] = direction.icon
-    if (lookForLoops) {
-      // Check if placing an obstacle right in front of you would create a loop
-      if (wouldCreateLoop(grid, row, col, direction)) {
-        grid.forEach(line => console.log(line.join('')))
-        console.log(nrow, ncol)
-        loops++
+    if (!grid.nextSpaceIsTheStart()) {
+      const cgrid = _.cloneDeep(grid)
+      cgrid.placeObstacle()
+      while (true) {
+        if (!cgrid.canStepInBounds()) break
+        if (cgrid.nextSpaceIsTheSame()) {
+          loops++
+          break
+        }
+        if (cgrid.isBlockedByObstacle()) {
+          cgrid.turn()
+          continue
+        }
+        cgrid.stepForward()
+        cgrid.markCurrentPosition()
       }
     }
+    grid.stepForward()
+    grid.markCurrentPosition()
   }
-  // Print the grid (why not?)
-  grid.forEach(line => console.log(line.join('')))
-  return loops
-}
-
-const wouldCreateLoop = (origGrid, row, col, direction) => {
-  const grid = _.cloneDeep(origGrid)
-
-  return false
+  console.log(loops)
 }

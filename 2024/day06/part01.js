@@ -32,35 +32,24 @@ class Grid {
 
   nextRow() { return this.row + this.direction.rowDiff }
   nextCol() { return this.col + this.direction.colDiff }
-
-  markCurrentPosition() { this.g[this.row][this.col] = 'X' }
+  nextSpaceMarker() { return this.g[this.nextRow()][this.nextCol()] }
 
   canStepInBounds() {
-    if (this.nextRow() < 0 || this.nextRow() >= this.height()) return false
-    if (this.nextCol() < 0 || this.nextCol() >= this.width()) return false
-    return true
+    return this.nextRow() >= 0 && this.nextRow() < this.height() &&
+      this.nextCol() >= 0 && this.nextCol() < this.width()
   }
+  isBlockedByObstacle() { return this.nextSpaceMarker() === '#' }
 
-  isBlockedByObstacle() {
-    return this.g[this.nextRow()][this.nextCol()] === '#'
-  }
-
-  turn() {
-    this.direction = DIRECTIONS[this.direction.next]
-  }
-
+  markCurrentPosition() { this.g[this.row][this.col] = 'X' }
+  turn() { this.direction = DIRECTIONS[this.direction.next] }
   stepForward() {
     this.row = this.nextRow()
     this.col = this.nextCol()
   }
 
-  distinctVisitedSpacesCount() {
-    return _.sum(this.g.map(line => _.sum(line.map(char => char === 'X'))))
-  }
+  distinctVisitedSpacesCount() { return _.sum(this.g.map(line => _.sum(line.map(char => char === 'X')))) }
 
-  print() {
-    this.g.forEach(line => console.log(line.join('')))
-  }
+  print() { this.g.forEach(line => console.log(line.join(''))) }
 }
 
 export const solve = (data) => {
