@@ -40,9 +40,8 @@ class Grid {
     return this.nextRow() >= 0 && this.nextRow() < this.height() &&
       this.nextCol() >= 0 && this.nextCol() < this.width()
   }
-  isBlockedByObstacle() { return '#0'.includes(this.nextSpaceMarker()) }
+  isBlockedByObstacle() { return '#'.includes(this.nextSpaceMarker()) }
   nextSpaceIsTheSame() { return this.canStepInBounds() && this.nextSpaceMarker() === this.direction.icon }
-  nextSpaceIsTheStart() { return this.nextRow() === this.starterRow && this.nextCol() === this.starterCol }
 
   turn() { this.direction = DIRECTIONS[this.direction.next] }
   markCurrentPosition() { this.g[this.row][this.col] = this.direction.icon }
@@ -50,7 +49,7 @@ class Grid {
     this.row = this.nextRow()
     this.col = this.nextCol()
   }
-  placeObstacle() { this.g[this.nextRow()][this.nextCol()] = '0' }
+  placeObstacle(row, col) { this.g[row][col] = '#' }
 
   print() {
     this.printGrid()
@@ -66,36 +65,35 @@ class Grid {
   }
 }
 
-export const solve = (data) => {
-  // Parse the grid
-  const grid = new Grid(data)
-  // Walk it out
+export const solve = (data) => {  
+  // Brute force: try placing at every spot
   let loops = 0
-  while (true) {
-    if (!grid.canStepInBounds()) break
-    if (grid.isBlockedByObstacle()) {
-      grid.turn()
-      continue
-    }
-    if (!grid.nextSpaceIsTheStart()) {
-      const cgrid = _.cloneDeep(grid)
-      cgrid.placeObstacle()
+  for (let row = 0; row < data.length; row++) {
+    for (let col = 0; col < data[0].length; col++) {
+      // Parse the grid
+      const grid = new Grid(data)
+      // Skip the starter space
+      if (row === grid.starterRow && col === grid.starterCol) continue
+      // Add an obstacle
+      grid.placeObstacle(row, col)
+      // Walk it out
       while (true) {
-        if (!cgrid.canStepInBounds()) break
-        if (cgrid.nextSpaceIsTheSame()) {
+        // If you found a loop, you're done with this obstacle
+        if (grid.nextSpaceIsTheSame()) {
           loops++
           break
         }
-        if (cgrid.isBlockedByObstacle()) {
-          cgrid.turn()
+        // Otherwise, keep walking
+        if (!grid.canStepInBounds()) break
+        if (grid.isBlockedByObstacle()) {
+          grid.turn()
           continue
         }
-        cgrid.stepForward()
-        cgrid.markCurrentPosition()
+        grid.stepForward()
+        grid.markCurrentPosition()
       }
     }
-    grid.stepForward()
-    grid.markCurrentPosition()
   }
+
   console.log(loops)
 }
