@@ -12,8 +12,7 @@ export const solve = (data) => {
   // Blink
   _.times(BLINKS, () => {
     let newStones = {}
-    Object.keys(stones).forEach(stoneChar => {
-      const stone = _.toNumber(stoneChar)
+    Object.keys(stones).map(str => _.toNumber(str)).forEach(stone => {
       if (stone === 0) {
         // If 0, replace with 1
         addStone(1, newStones, stones[stone])
