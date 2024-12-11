@@ -4,7 +4,7 @@ const BLINKS = 25
 
 export const solve = (data) => {
   let stones = {}
-  // Order doesn't matter, create a bag of stones
+  // Order doesn't matter, keep track of number of stones of each value
   data[0].split(' ').map(str => _.toNumber(str)).forEach(num => {
     if (!stones[num]) stones[num] = 0
     stones[num]++
