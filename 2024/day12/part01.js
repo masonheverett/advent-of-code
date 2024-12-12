@@ -20,6 +20,7 @@ class Region {
   perimeter() {
     let dist = 4 * this.area()
     this.plots.forEach(plot => {
+      // Borders another plot in the region
       for (const direction of DIRECTIONS) {
         if (this.plots.some(p => p[0] === plot[0] + direction[0] && p[1] === plot[1] + direction[1])) dist--
       }
