@@ -35,16 +35,10 @@ export const solve = (data) => {
   })
   // Move
   moves.forEach(move => {
-    let boxCountToPush = 0
     let diff = 0
     diff += DIRECTIONS[move]
     // Check until you hit a wall or space
-    while (![WALL, SPACE].includes(warehouse[robot + diff])) {
-      // Increment number of boxes to push
-      boxCountToPush++
-      // Check next spot
-      diff += DIRECTIONS[move]
-    }
+    while (![WALL, SPACE].includes(warehouse[robot + diff])) diff += DIRECTIONS[move]
     // If it is a wall, skip it all
     if (warehouse[robot + diff] === WALL) return
     // If it is a space, push them all
