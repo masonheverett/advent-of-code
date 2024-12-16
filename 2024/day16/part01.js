@@ -29,8 +29,6 @@ class Reindeer {
     }
   }
 
-  currentMarker() { return this.maze[this.location[0], this.location[1]] }
-
   print() {
     console.log(`Direction: ${this.direction}\nCost: ${this.cost}`)
     this.maze.forEach((row, r) => {
@@ -45,4 +43,5 @@ class Reindeer {
 export const solve = (data) => {
   const reindeer = new Reindeer(data.map(line => line.split('')), 0)
   reindeer.print()
+  // Use Dijkstra's algorithm to find the shortest path between start and end
 }
