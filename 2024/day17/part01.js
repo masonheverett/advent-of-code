@@ -10,7 +10,6 @@ class Machine {
     this.out = []
   }
 
-  // Update to BigInt from here down
   opcodeFns(opcode) {
     return {
       '0': operand => this.regA = this.regA / (2n ** this.combos(operand)),
