@@ -51,6 +51,10 @@ class Machine {
     return true
   }
 
+  executeFull() {
+    while (this.executeNext()) {}
+  }
+
   reset(a, b, c) {
     this.regA = a
     this.regB = b
@@ -75,14 +79,24 @@ class Machine {
 
 export const solve = (data) => {
   const machine = new Machine(data)
-  const regB = machine.regB
-  const regC = machine.regC
-  let regA = 0n
-  do {
-    regA++
-    console.log(regA)
-    machine.reset(regA, regB, regC)
-    while (machine.executeNext()) {}
-  } while (machine.output() !== machine.program.join(','))
-  console.log(machine.output())
+  console.log(_.min(findProgram(machine, 0, 0n, machine.regB, machine.regC)))
+}
+
+const findProgram = (machine, currentIndex, soFar, regB, regC) => {
+  // You found one!
+  if (currentIndex >= machine.program.length) {
+    return [soFar]
+  }
+  // Solve for one octal digit at a time with DFS
+  const toAdd = 8n ** BigInt(machine.program.length - 1 - currentIndex)
+  const solutions = []
+  for (let i = 0n; i < 8n; i++) {
+    const toTest = toAdd * i + soFar
+    machine.reset(toTest, regB, regC)
+    machine.executeFull()
+    const indexToCheck = machine.program.length - 1 - currentIndex
+    if (machine.out[indexToCheck] !== BigInt(machine.program[indexToCheck])) continue
+    solutions.push(...findProgram(machine, currentIndex + 1, toTest, regB, regC))
+  }
+  return solutions
 }
