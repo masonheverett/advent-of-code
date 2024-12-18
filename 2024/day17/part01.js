@@ -7,7 +7,7 @@ class Machine {
     this.regB = BigInt(data[1].split(' ')[2])
     this.regC = BigInt(data[2].split(' ')[2])
     this.inPtr = 0
-    this.out = []
+    this.outArr = []
   }
 
   opcodeFns(opcode) {
@@ -17,7 +17,7 @@ class Machine {
       '2': operand => this.regB = this.combos(operand) % 8n,
       '3': operand => this.inPtr = this.regA === 0n ? this.inPtr : operand,
       '4': operand => this.regB = this.regB ^ this.regC,
-      '5': operand => this.out.push(this.combos(operand) % 8n),
+      '5': operand => this.outArr.push(this.combos(operand) % 8n),
       '6': operand => this.regB = this.regA / (2n ** this.combos(operand)),
       '7': operand => this.regC = this.regA / (2n ** this.combos(operand))
     }[opcode]
@@ -51,6 +51,10 @@ class Machine {
     return true
   }
 
+  executeFull() {
+    while (this.executeNext()) {}
+  }
+
   printInfo() {
     console.log('----- MACHINE INFO -----')
     console.log('Registers:', this.regA, this.regB, this.regC)
@@ -61,12 +65,12 @@ class Machine {
   }
 
   output() {
-    return this.out.join(',')
+    return this.outArr.join(',')
   }
 }
 
 export const solve = (data) => {
   const machine = new Machine(data)
-  while (machine.executeNext()) {}
+  machine.executeFull()
   console.log(machine.output())
 }

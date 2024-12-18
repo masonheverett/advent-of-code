@@ -7,7 +7,7 @@ class Machine {
     this.regB = BigInt(data[1].split(' ')[2])
     this.regC = BigInt(data[2].split(' ')[2])
     this.inPtr = 0
-    this.out = []
+    this.outArr = []
   }
 
   opcodeFns(opcode) {
@@ -17,7 +17,7 @@ class Machine {
       '2': operand => this.regB = this.combos(operand) % 8n,
       '3': operand => this.inPtr = this.regA === 0n ? this.inPtr : operand,
       '4': operand => this.regB = this.regB ^ this.regC,
-      '5': operand => this.out.push(this.combos(operand) % 8n),
+      '5': operand => this.outArr.push(this.combos(operand) % 8n),
       '6': operand => this.regB = this.regA / (2n ** this.combos(operand)),
       '7': operand => this.regC = this.regA / (2n ** this.combos(operand))
     }[opcode]
@@ -60,7 +60,7 @@ class Machine {
     this.regB = b
     this.regC = c
     this.inPtr = 0
-    this.out = []
+    this.outArr = []
   }
 
   printInfo() {
@@ -73,7 +73,7 @@ class Machine {
   }
 
   output() {
-    return this.out.join(',')
+    return this.outArr.join(',')
   }
 }
 
@@ -84,9 +84,7 @@ export const solve = (data) => {
 
 const findPrograms = (machine, currentIndex, soFar, regB, regC) => {
   // You found one!
-  if (currentIndex >= machine.program.length) {
-    return [soFar]
-  }
+  if (currentIndex >= machine.program.length) return [soFar]
   // Solve for one octal digit at a time with DFS
   const toAdd = 8n ** BigInt(machine.program.length - 1 - currentIndex)
   const solutions = []
@@ -95,7 +93,7 @@ const findPrograms = (machine, currentIndex, soFar, regB, regC) => {
     machine.reset(toTest, regB, regC)
     machine.executeFull()
     const indexToCheck = machine.program.length - 1 - currentIndex
-    if (machine.out[indexToCheck] !== BigInt(machine.program[indexToCheck])) continue
+    if (machine.outArr[indexToCheck] !== BigInt(machine.program[indexToCheck])) continue
     solutions.push(...findPrograms(machine, currentIndex + 1, toTest, regB, regC))
   }
   return solutions
