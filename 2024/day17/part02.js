@@ -79,10 +79,10 @@ class Machine {
 
 export const solve = (data) => {
   const machine = new Machine(data)
-  console.log(_.min(findProgram(machine, 0, 0n, machine.regB, machine.regC)))
+  console.log(_.min(findPrograms(machine, 0, 0n, machine.regB, machine.regC)))
 }
 
-const findProgram = (machine, currentIndex, soFar, regB, regC) => {
+const findPrograms = (machine, currentIndex, soFar, regB, regC) => {
   // You found one!
   if (currentIndex >= machine.program.length) {
     return [soFar]
@@ -96,7 +96,7 @@ const findProgram = (machine, currentIndex, soFar, regB, regC) => {
     machine.executeFull()
     const indexToCheck = machine.program.length - 1 - currentIndex
     if (machine.out[indexToCheck] !== BigInt(machine.program[indexToCheck])) continue
-    solutions.push(...findProgram(machine, currentIndex + 1, toTest, regB, regC))
+    solutions.push(...findPrograms(machine, currentIndex + 1, toTest, regB, regC))
   }
   return solutions
 }
