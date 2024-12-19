@@ -1,18 +1,7 @@
 import _ from 'lodash'
+import directions from '../util/directions.js'
 
 const NOT_DOT_OR_HASH = /[^\.#]/
-const DIRECTIONS = {
-  north: {rowDiff: -1, colDiff: 0, next: 'east'},
-  east: {rowDiff: 0, colDiff: 1, next: 'south'},
-  south: {rowDiff: 1, colDiff: 0, next: 'west'},
-  west: {rowDiff: 0, colDiff: -1, next: 'north'},
-}
-const ICON_MAP = {
-  '^': DIRECTIONS.north,
-  '>': DIRECTIONS.east,
-  'v': DIRECTIONS.south,
-  '<': DIRECTIONS.west
-}
 
 class Grid {
   constructor(data) {
@@ -21,7 +10,7 @@ class Grid {
       if (starter) {
         this.row = lineNdx
         this.col = line.search(NOT_DOT_OR_HASH)
-        this.direction = ICON_MAP[starter]
+        this.direction = directions[starter]
       }
       return line.split('')
     })
@@ -41,7 +30,7 @@ class Grid {
   isBlockedByObstacle() { return this.nextSpaceMarker() === '#' }
 
   markCurrentPosition() { this.g[this.row][this.col] = 'X' }
-  turn() { this.direction = DIRECTIONS[this.direction.next] }
+  turn() { this.direction = this.direction.cwTurn }
   stepForward() {
     this.row = this.nextRow()
     this.col = this.nextCol()
@@ -67,8 +56,6 @@ export const solve = (data) => {
     grid.stepForward()
     grid.markCurrentPosition()
   }
-  // Print the grid (why not?)
-  grid.print()
   // Count marked spots
   console.log(grid.distinctVisitedSpacesCount())
 }

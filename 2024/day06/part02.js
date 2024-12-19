@@ -1,18 +1,7 @@
 import _ from 'lodash'
+import directions from '../util/directions.js'
 
 const NOT_DOT_OR_HASH = /[^\.#]/
-const DIRECTIONS = {
-  north: {icon: '^', rowDiff: -1, colDiff: 0, next: 'east'},
-  east: {icon: '>', rowDiff: 0, colDiff: 1, next: 'south'},
-  south: {icon: 'v', rowDiff: 1, colDiff: 0, next: 'west'},
-  west: {icon: '<', rowDiff: 0, colDiff: -1, next: 'north'},
-}
-const ICON_MAP = {
-  '^': DIRECTIONS.north,
-  '>': DIRECTIONS.east,
-  'v': DIRECTIONS.south,
-  '<': DIRECTIONS.west
-}
 
 class Grid {
   constructor(data) {
@@ -23,7 +12,7 @@ class Grid {
         this.starterRow = this.row
         this.col = line.search(NOT_DOT_OR_HASH)
         this.starterCol = this.col
-        this.direction = ICON_MAP[starter]
+        this.direction = directions[starter]
       }
       return line.split('')
     })
@@ -43,7 +32,7 @@ class Grid {
   isBlockedByObstacle() { return '#'.includes(this.nextSpaceMarker()) }
   nextSpaceIsTheSame() { return this.canStepInBounds() && this.nextSpaceMarker() === this.direction.icon }
 
-  turn() { this.direction = DIRECTIONS[this.direction.next] }
+  turn() { this.direction = this.direction.cwTurn }
   markCurrentPosition() { this.g[this.row][this.col] = this.direction.icon }
   stepForward() {
     this.row = this.nextRow()
@@ -94,6 +83,5 @@ export const solve = (data) => {
       }
     }
   }
-
   console.log(loops)
 }

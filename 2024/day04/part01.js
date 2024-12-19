@@ -1,16 +1,5 @@
 import _ from 'lodash'
-
-const E = 'east'
-const SE = 'southeast'
-const S = 'south'
-const SW = 'southwest'
-
-const coordDiffs = {
-  'east': [0, 1],
-  'southeast': [1, 1],
-  'south': [1, 0],
-  'southwest': [1, -1]
-}
+import directions from '../util/directions.js'
 
 export const solve = (data) => {
   // Parse input
@@ -21,18 +10,18 @@ export const solve = (data) => {
       // Check if it's XMAS
       if (char === 'X') {
         // Look E, SE, S, and SW
-        return isMatch(grid, rowNum, colNum, E, 'MAS') +
-          isMatch(grid, rowNum, colNum, SE, 'MAS') +
-          isMatch(grid, rowNum, colNum, S, 'MAS') +
-          isMatch(grid, rowNum, colNum, SW, 'MAS')
+        return isMatch(grid, rowNum, colNum, directions.east, 'MAS') +
+          isMatch(grid, rowNum, colNum, directions.southeast, 'MAS') +
+          isMatch(grid, rowNum, colNum, directions.south, 'MAS') +
+          isMatch(grid, rowNum, colNum, directions.southwest, 'MAS')
       }
       // Check if it's SAMX
       if (char === 'S') {
         // Look E, SE, S, and SW
-        return isMatch(grid, rowNum, colNum, E, 'AMX') +
-          isMatch(grid, rowNum, colNum, SE, 'AMX') +
-          isMatch(grid, rowNum, colNum, S, 'AMX') +
-          isMatch(grid, rowNum, colNum, SW, 'AMX')
+        return isMatch(grid, rowNum, colNum, directions.east, 'AMX') +
+          isMatch(grid, rowNum, colNum, directions.southeast, 'AMX') +
+          isMatch(grid, rowNum, colNum, directions.south, 'AMX') +
+          isMatch(grid, rowNum, colNum, directions.southwest, 'AMX')
       }
       return 0
     }))
@@ -42,8 +31,8 @@ export const solve = (data) => {
 const isMatch = (grid, rowNum, colNum, direction, str) => {
   // Congrats, you found a match
   if (str === '') return 1
-  const nextRowNum = rowNum + coordDiffs[direction][0]
-  const nextColNum = colNum + coordDiffs[direction][1]
+  const nextRowNum = rowNum + direction.rowDiff
+  const nextColNum = colNum + direction.colDiff
   // Ran out of bounds vertically
   if (nextRowNum < 0 || nextRowNum >= grid.length) return 0
   // Ran out of bounds horizontally
