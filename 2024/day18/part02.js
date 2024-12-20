@@ -15,7 +15,7 @@ class HeapNode {
   get id() { return coordsToId(this.row, this.col) }
 }
 
-export class MinHeap {
+class MinHeap {
   _heap = []
   
   cost(index) {

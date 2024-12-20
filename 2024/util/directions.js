@@ -40,5 +40,8 @@ export default {
   [north.icon]: north,
   [south.icon]: south,
   [east.icon]: east,
-  [west.icon]: west
+  [west.icon]: west,
+  primary: [north, east, south, west],
+  secondary: [northeast, southeast, southwest, northwest],
+  all: [north, northeast, east, southeast, south, southwest, west, northwest]
 }
