@@ -102,8 +102,12 @@ class Grid {
   get height() { return this.g.length }
   get width() { return this.g[0].length }
 
-  hasWall(row, col) { return this.g[row][col] === MARKERS.wall }
+  isWall(row, col) { return this.g[row][col] === MARKERS.wall }
   removeWall(row, col) { this.g[row][col] = MARKERS.space }
+
+  bordersTwoSpaces(row, col) {
+    return directions.primary.filter(dir => !this.isWall(row + dir.rowDiff, col + dir.colDiff)).length > 1
+  }
 
   runDijkstra() {
     // Clear costs and visited
@@ -112,7 +116,7 @@ class Grid {
     // Initialize costs and visited
     for (let r = 1; r < this.height - 1; r++) {
       for (let c = 1; c < this.width - 1; c++) {
-        if (!this.hasWall(r, c)) {
+        if (!this.isWall(r, c)) {
           this.costs[coordsToId(r, c)] = Number.POSITIVE_INFINITY
           this.visited[coordsToId(r, c)] = false
         }
@@ -152,16 +156,25 @@ class Grid {
 }
 
 export const solve = (data) => {
+  // Parse input
   const oGrid = new Grid(data)
+  // Find shortest path now
   oGrid.runDijkstra()
   const oLength = oGrid.shortestPathLength
+  // Loop over spaces in grid
   let shorterCount = 0
   for (let r = 1; r < oGrid.height - 1; r++) {
     for (let c = 1; c < oGrid.width - 1; c++) {
-      if (!oGrid.hasWall(r, c)) continue
+      // If this spot is not a wall, skip it
+      if (!oGrid.isWall(r, c)) continue
+      // If removing this wall wouldn't connect two spaces, skip it
+      if (!oGrid.bordersTwoSpaces(r, c)) continue
+      // Copy the grid, remove the wall, and find the shortest path
+      console.log(r, c)
       const grid = _.cloneDeep(oGrid)
       grid.removeWall(r, c)
       grid.runDijkstra()
+      // If the shortest path gets you at least the minimum savings, increment the count
       if (grid.shortestPathLength + MIN_SAVINGS <= oLength) shorterCount++
     }
   }
