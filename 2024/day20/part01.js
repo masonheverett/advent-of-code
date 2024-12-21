@@ -1,6 +1,7 @@
 import _ from 'lodash'
 import directions from '../util/directions.js'
 
+const MAX_CHEAT = 2
 const MIN_SAVINGS = 100
 
 const MARKERS = {
@@ -10,8 +11,8 @@ const MARKERS = {
   end: 'E'
 }
 
-const coordsToId = (row, col) => `${row},${col}`
-const idToCoords = (str) => str.split(',').map(char => _.toNumber(char))
+const coordsToId = (row, col) => row * 1000 + col
+const idToCoords = (id) => [Math.floor(id / 1000), id % 1000]
 
 class Racetrack {
   constructor(data) {
@@ -30,28 +31,30 @@ class Racetrack {
       }
       return line.split('')
     })
+    this._findPath()
   }
 
-  findPath() {
+  _findPath() {
     let row = this.startRow
     let col = this.startCol
     let ndx = 0
     const id = coordsToId(row, col)
-    this.indexToCoords = [id]
-    this.coordsToIndex = { [id]: ndx++ }
+    this.indexToCoord = [id]
+    this.coordToIndex = { [id]: ndx++ }
     while (row !== this.endRow || col !== this.endCol) {
       for (const dir of directions.primary) {
         const newRow = row + dir.rowDiff
         const newCol = col + dir.colDiff
         if (newRow < 0 || newRow > this.height) continue
         if (newCol < 0 || newCol > this.width) continue
-        if (this.grid[newRow][newCol] === MARKERS.wall) continue
+        if (newRow === this.startRow && newCol === this.startCol) continue
+        if (!(newRow === this.endRow && newCol === this.endCol) && this.grid[newRow][newCol] !== MARKERS.space) continue
         const newId = coordsToId(newRow, newCol)
-        if (this.coordsToIndex[newId]) continue
+        if (this.coordToIndex[newId]) continue
         row = newRow
         col = newCol
-        this.indexToCoords.push(newId)
-        this.coordsToIndex[newId] = ndx++
+        this.indexToCoord.push(newId)
+        this.coordToIndex[newId] = ndx++
         break
       }
     }
@@ -59,40 +62,29 @@ class Racetrack {
 
   get height() { return this.grid.length }
   get width() { return this.grid[0].length }
-  get path() { return this.indexToCoords }
+  get path() { return this.indexToCoord }
   
   at(row, col) { return this.grid[row][col] }
 
   print() { this.grid.forEach(line => console.log(line.join(''))) }
 }
 
-
 export const solve = (data) => {
   // Parse input
   const track = new Racetrack(data)
-  // Find the path
-  track.findPath()
-  // For each spot on the track
+  // For each ordered pair of spots on the track
   let count = 0
-  track.path.forEach(spot => {
-    const [row, col] = idToCoords(spot)
-    // Cheat in each direction
-    for (const dir of directions.primary) {
-      const newRow = row + dir.rowDiff * 2
-      const newCol = col + dir.colDiff * 2
-      if (newRow < 0 || newRow >= track.height) continue
-      if (newCol < 0 || newCol >= track.width) continue
-      if (track.at(newRow, newCol) === MARKERS.wall) continue
-      const wallRow = row + dir.rowDiff
-      const wallCol = col + dir.colDiff
-      if (track.at(wallRow, wallCol) !== MARKERS.wall) continue
-      // If you hit another spot, calculate difference
-      const currentNdx = track.coordsToIndex[coordsToId(row, col)]
-      const nextNdx = track.coordsToIndex[coordsToId(newRow, newCol)]
-      const savings = MIN_SAVINGS + 2
-      if (nextNdx - savings < currentNdx) continue
-      count++
+  for (let ndx1 = 0; ndx1 < track.path.length - 1; ndx1++) {
+    for (let ndx2 = ndx1 + 1; ndx2 < track.path.length; ndx2++) {
+      // Check for a valid cheat
+      const [startRow, startCol] = idToCoords(track.indexToCoord[ndx1])
+      const [endRow, endCol] = idToCoords(track.indexToCoord[ndx2])
+      const manhattanDiff = Math.abs(endRow - startRow) + Math.abs(endCol - startCol)
+      if (manhattanDiff > MAX_CHEAT) continue
+      // Calculate savings
+      const savings = ndx2 - ndx1 - manhattanDiff
+      if (savings >= MIN_SAVINGS) count++
     }
-  })
+  }
   console.log(count)
 }
