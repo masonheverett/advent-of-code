@@ -11,78 +11,11 @@ const MARKERS = {
 }
 
 const coordsToId = (row, col) => `${row},${col}`
+const idToCoords = (str) => str.split(',').map(char => _.toNumber(char))
 
-class HeapNode {
-  constructor(row, col, cost) {
-    this.cost = cost
-    this.row = row
-    this.col = col
-  }
-
-  get id() { return coordsToId(this.row, this.col) }
-}
-
-class MinHeap {
-  _heap = []
-  
-  cost(node) { return node.cost }
-
-  get size() { return this._heap.length }
-
-  getParentIndex(ndx) { return Math.floor((ndx - 1) / 2) }
-  getLeftChildIndex(ndx) { return 2 * ndx + 1 }
-  getRightChildIndex(ndx) { return 2 * ndx + 2 }
-
-  swap(ndx1, ndx2) { [this._heap[ndx1], this._heap[ndx2]] = [this._heap[ndx2], this._heap[ndx1]] }
-
-  push(node) {
-    this._heap.push(node)
-    this.heapifyUp()
-  }
-
-  heapifyUp() {
-    let ndx = this.size - 1
-    while (ndx > 0) {
-      let parentNdx = this.getParentIndex(ndx)
-      if (this.cost(this._heap[parentNdx]) > this.cost(this._heap[ndx])) {
-        this.swap(parentNdx, ndx)
-        ndx = parentNdx
-      } else {
-        break
-      }
-    }
-  }
-
-  pop() {
-    if (this.size === 0) return null
-    if (this.size === 1) return this._heap.pop()
-    const min = this._heap[0]
-    this._heap[0] = this._heap.pop()
-    this.heapifyDown()
-    return min
-  }
-
-  heapifyDown() {
-    let ndx = 0
-    while (this.getLeftChildIndex(ndx) < this.size) {
-      let sChildNdx = this.getLeftChildIndex(ndx)
-      let rChildNdx = this.getRightChildIndex(ndx)
-      if (rChildNdx < this.size && this.cost(this._heap[rChildNdx]) < this.cost(this._heap[sChildNdx])) {
-        sChildNdx = rChildNdx
-      }
-      if (this.cost(this._heap[ndx]) > this.cost(this._heap[sChildNdx])) {
-        this.swap(ndx, sChildNdx)
-        ndx = sChildNdx
-      } else {
-        break
-      }
-    }
-  }
-}
-
-class Grid {
+class Racetrack {
   constructor(data) {
-    this.g = data.map((line, lineNdx) => {
+    this.grid = data.map((line, lineNdx) => {
       const startCol = line.indexOf(MARKERS.start)
       const endCol = line.indexOf(MARKERS.end)
       if (startCol > -1) {
@@ -99,84 +32,67 @@ class Grid {
     })
   }
 
-  get height() { return this.g.length }
-  get width() { return this.g[0].length }
-
-  isWall(row, col) { return this.g[row][col] === MARKERS.wall }
-  removeWall(row, col) { this.g[row][col] = MARKERS.space }
-
-  bordersTwoSpaces(row, col) {
-    return directions.primary.filter(dir => !this.isWall(row + dir.rowDiff, col + dir.colDiff)).length > 1
-  }
-
-  runDijkstra() {
-    // Clear costs and visited
-    this.costs = {}
-    this.visited = {}
-    // Initialize costs and visited
-    for (let r = 1; r < this.height - 1; r++) {
-      for (let c = 1; c < this.width - 1; c++) {
-        if (!this.isWall(r, c)) {
-          this.costs[coordsToId(r, c)] = Number.POSITIVE_INFINITY
-          this.visited[coordsToId(r, c)] = false
-        }
+  findPath() {
+    let row = this.startRow
+    let col = this.startCol
+    let ndx = 0
+    const id = coordsToId(row, col)
+    this.indexToCoords = [id]
+    this.coordsToIndex = { [id]: ndx++ }
+    while (row !== this.endRow || col !== this.endCol) {
+      for (const dir of directions.primary) {
+        const newRow = row + dir.rowDiff
+        const newCol = col + dir.colDiff
+        if (newRow < 0 || newRow > this.height) continue
+        if (newCol < 0 || newCol > this.width) continue
+        if (this.grid[newRow][newCol] === MARKERS.wall) continue
+        const newId = coordsToId(newRow, newCol)
+        if (this.coordsToIndex[newId]) continue
+        row = newRow
+        col = newCol
+        this.indexToCoords.push(newId)
+        this.coordsToIndex[newId] = ndx++
+        break
       }
     }
-    // Create heap and push start
-    const heap = new MinHeap()
-    heap.push(new HeapNode(this.startRow, this.startCol, 0))
-    // Process heap
-    while (heap.size > 0) {
-      // Pop from heap
-      const current = heap.pop()
-      // Stop if you're at the end
-      if (current.row === this.endRow && current.col === this.endCol) break
-      // Check neighbors
-      directions.primary.forEach(dir => {
-        const neighborRow = current.row + dir.rowDiff
-        const neighborCol = current.col + dir.colDiff
-        const neighborId = coordsToId(neighborRow, neighborCol)
-        // If neighbor isn't a space, skip it
-        if (this.costs[neighborId] === undefined) return
-        // If neighbor has been visited, skip it
-        if (this.visited[neighborId]) return
-        // If you found a shorter path, update costs
-        if (current.cost + 1 < this.costs[neighborId]) this.costs[neighborId] = current.cost + 1
-        // Add neighbor to the heap
-        heap.push(new HeapNode(neighborRow, neighborCol, this.costs[neighborId]))
-      })
-      // Mark current as visited
-      this.visited[coordsToId(current.row, current.col)] = true
-    }
   }
 
-  get shortestPathLength() { return this.costs[coordsToId(this.endRow, this.endCol)] }
+  get height() { return this.grid.length }
+  get width() { return this.grid[0].length }
+  get path() { return this.indexToCoords }
+  
+  at(row, col) { return this.grid[row][col] }
 
-  print() { this.g.forEach(line => console.log(line.join(''))) }
+  print() { this.grid.forEach(line => console.log(line.join(''))) }
 }
+
 
 export const solve = (data) => {
   // Parse input
-  const oGrid = new Grid(data)
-  // Find shortest path now
-  oGrid.runDijkstra()
-  const oLength = oGrid.shortestPathLength
-  // Loop over spaces in grid
-  let shorterCount = 0
-  for (let r = 1; r < oGrid.height - 1; r++) {
-    for (let c = 1; c < oGrid.width - 1; c++) {
-      // If this spot is not a wall, skip it
-      if (!oGrid.isWall(r, c)) continue
-      // If removing this wall wouldn't connect two spaces, skip it
-      if (!oGrid.bordersTwoSpaces(r, c)) continue
-      // Copy the grid, remove the wall, and find the shortest path
-      console.log(r, c)
-      const grid = _.cloneDeep(oGrid)
-      grid.removeWall(r, c)
-      grid.runDijkstra()
-      // If the shortest path gets you at least the minimum savings, increment the count
-      if (grid.shortestPathLength + MIN_SAVINGS <= oLength) shorterCount++
+  const track = new Racetrack(data)
+  // Find the path
+  track.findPath()
+  // For each spot on the track
+  let count = 0
+  track.path.forEach(spot => {
+    const [row, col] = idToCoords(spot)
+    // Cheat in each direction
+    for (const dir of directions.primary) {
+      const newRow = row + dir.rowDiff * 2
+      const newCol = col + dir.colDiff * 2
+      if (newRow < 0 || newRow >= track.height) continue
+      if (newCol < 0 || newCol >= track.width) continue
+      if (track.at(newRow, newCol) === MARKERS.wall) continue
+      const wallRow = row + dir.rowDiff
+      const wallCol = col + dir.colDiff
+      if (track.at(wallRow, wallCol) !== MARKERS.wall) continue
+      // If you hit another spot, calculate difference
+      const currentNdx = track.coordsToIndex[coordsToId(row, col)]
+      const nextNdx = track.coordsToIndex[coordsToId(newRow, newCol)]
+      const savings = MIN_SAVINGS + 2
+      if (nextNdx - savings < currentNdx) continue
+      count++
     }
-  }
-  console.log(shorterCount)
+  })
+  console.log(count)
 }
